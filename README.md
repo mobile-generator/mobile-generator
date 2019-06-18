@@ -29,10 +29,10 @@ Flutter CLI
 * Navigation template
     * Menu burger
     * Tabbar
-* Styleguide Activity
+* Styleguide Page
     * colors
     * buttons
     * etc
-* About Activity
+* About Page
     * version (retrieved from Gradle)
     * etc
