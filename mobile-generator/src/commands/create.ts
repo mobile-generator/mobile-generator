@@ -1,9 +1,13 @@
 import { Command, flags } from '@oclif/command'
 import cli from 'cli-ux'
 import * as inquirer from 'inquirer'
-import { SDK_VERSION } from '../ressource/constants'
+import { SDK_VERSION, ADVISED_MIN_ANDROID, ADVISED_TARGET_ANDROID } from '../ressource/constants'
+import { PlatformType } from '../ressource/enum';
+import { Configuration } from '../ressource/ configuration';
 
 export default class Create extends Command {
+  configuration = new Configuration();
+
   static description = 'This command is used to create a new template. You need to give the targeted platform and app name'
 
   static examples = [
@@ -14,8 +18,6 @@ export default class Create extends Command {
     help: flags.help({ char: 'h' }),
   }
 
-
-
   static args = []
 
 
@@ -23,8 +25,8 @@ export default class Create extends Command {
   async run() {
     const { args, flags } = this.parse(Create)
 
-    // Prompt for platform target
     let commonResponses: any = await inquirer.prompt([
+      // Prompt for app name
       {
         type: 'input',
         name: 'app_name',
@@ -36,12 +38,14 @@ export default class Create extends Command {
           return 'my-app';
         }
       },
+      // Prompt for platform target
       {
+        type: 'list',
         name: 'platform',
         message: 'Select targeted platform',
-        type: 'list',
-        choices: [{ name: 'Android' }, { name: 'iOS' }, { name: 'Flutter' }],
+        choices: Object.keys(PlatformType).map(key => ({ name: key })),
       },
+      // Prompt for app id
       {
         type: 'number',
         name: 'app_id',
@@ -52,24 +56,43 @@ export default class Create extends Command {
       }
     ])
 
-    let platform: string = commonResponses.platform.toLowerCase()
+    this.configuration.app_name = commonResponses.app_name
+    this.configuration.app_id = commonResponses.app_id
+    this.configuration.mobile_platform = commonResponses.platform
 
+    if (this.configuration.mobile_platform !== 'flutter') {
 
-    let specificResponses: any = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'sdk_version',
-        message: `What's your target ${platform} SDK version ?`,
-        choices: SDK_VERSION[platform].map(version => version.toString()),
-      }
-    ])
+      let sdk_target_version: any = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'value',
+          message: `What's your target ${this.configuration.mobile_platform} SDK version ?`,
+          choices: SDK_VERSION[this.configuration.mobile_platform].map(version => ({name: version.toString(), value: version })),
+        }
+      ])
 
+      this.configuration.sdk_target_version = sdk_target_version.value
 
-    let common = JSON.stringify(commonResponses, null, 4); // (Optional) beautiful indented output.
-    let specific = JSON.stringify(specificResponses, null, 4); // (Optional) beautiful indented output.
-    this.log(`All common settings: ${common}`)
-    this.log(`All specific settings: ${specific}`)
+      let sdk_min_version: any = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'value',
+          message: `What's your min ${this.configuration.mobile_platform} SDK version ?`,
+          choices: SDK_VERSION[this.configuration.mobile_platform]
+            .filter(version => version.compare(this.configuration.sdk_target_version) <= 0)
+            .map(version => ({name: version.toString(), value: version })),
+        }
+      ])
 
+      this.configuration.sdk_min_version = sdk_min_version.value
+    } else {
+      // Flutter CLI will fill corresponding value
+
+      this.configuration.sdk_min_version = ADVISED_MIN_ANDROID
+      this.configuration.sdk_target_version = ADVISED_TARGET_ANDROID
+    }
+
+    this.log(`Configuration ${this.configuration.toSring()}`)
   }
 }
 
