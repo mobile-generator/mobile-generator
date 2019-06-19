@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import cli from 'cli-ux'
 import * as inquirer from 'inquirer'
-import { SDK_VERSION, ADVISED_MIN_ANDROID, ADVISED_TARGET_ANDROID } from '../ressource/constants'
+import { GLOBAL } from '../ressource/constants'
 import { PlatformType } from '../ressource/enum';
 import { Configuration } from '../ressource/ configuration';
 
@@ -67,7 +67,7 @@ export default class Create extends Command {
           type: 'list',
           name: 'value',
           message: `What's your target ${this.configuration.mobile_platform} SDK version ?`,
-          choices: SDK_VERSION[this.configuration.mobile_platform].map(version => ({name: version.toString(), value: version })),
+          choices: GLOBAL[this.configuration.mobile_platform]['sdk_version'].map(version => ({name: version.toString(), value: version })),
         }
       ])
 
@@ -78,18 +78,38 @@ export default class Create extends Command {
           type: 'list',
           name: 'value',
           message: `What's your min ${this.configuration.mobile_platform} SDK version ?`,
-          choices: SDK_VERSION[this.configuration.mobile_platform]
+          choices: GLOBAL[this.configuration.mobile_platform]['sdk_version']
             .filter(version => version.compare(this.configuration.sdk_target_version) <= 0)
             .map(version => ({name: version.toString(), value: version })),
         }
       ])
 
       this.configuration.sdk_min_version = sdk_min_version.value
+
+      let template: any = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'value',
+          message: `What kind of application template would you use ?`,
+          choices: GLOBAL[this.configuration.mobile_platform]['template']
+            .map(template => ({name: template.toString(), value: template })),
+        }
+      ])
+
+      this.configuration.template = template.value
+
+      let internet_permission: any = await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'value',
+          message: `Will your application needs internet access ?`,
+        }
+      ])
+
+      this.configuration.internet_permission = internet_permission.value
+
     } else {
       // Flutter CLI will fill corresponding value
-
-      this.configuration.sdk_min_version = ADVISED_MIN_ANDROID
-      this.configuration.sdk_target_version = ADVISED_TARGET_ANDROID
     }
 
     this.log(`Configuration ${this.configuration.toSring()}`)
