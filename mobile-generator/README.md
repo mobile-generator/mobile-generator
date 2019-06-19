@@ -1,7 +1,7 @@
 mobile-generator
 ================
 
-¯\_(ツ)_/¯
+¯\\_(ツ)_/¯
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/mobile-generator.svg)](https://npmjs.org/package/mobile-generator)
