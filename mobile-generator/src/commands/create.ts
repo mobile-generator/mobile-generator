@@ -2,8 +2,8 @@ import { Command, flags } from '@oclif/command'
 import * as inquirer from 'inquirer'
 import { PlatformType } from '../main/configuration/enum';
 import { Configuration } from '../main/configuration/configuration';
-import { MobilePlatformConfiguration } from '../main/configuration/mobile_platform_configuration';
-import { GlobalConfiguration } from '../main/configuration/global_configuration';
+import { MobilePlatformConfiguration } from '../main/configuration/mobile-platform-configuration';
+import { GlobalConfiguration } from '../main/configuration/global-configuration';
 
 export default class Create extends Command {
   configuration = new Configuration();

@@ -1,5 +1,5 @@
 import { PlatformType } from './enum';
-import { MobilePlatformConfiguration } from './mobile_platform_configuration';
+import { MobilePlatformConfiguration } from './mobile-platform-configuration';
 import * as ANDROID_CONF from '../../ressource/config/android.json';
 
 export class Configuration {

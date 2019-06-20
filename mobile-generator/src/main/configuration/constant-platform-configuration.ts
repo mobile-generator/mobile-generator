@@ -1,4 +1,4 @@
-import { JSONMobilePlatformConfiguration, IMobilePlatformConfiguration } from './mobile_platform_configuration';
+import { JSONMobilePlatformConfiguration, IMobilePlatformConfiguration } from './mobile-platform-configuration';
 import { ISdkVersion, SdkVersion } from './sdk_version';
 import { PlatformType, TemplateType } from './enum';
 
