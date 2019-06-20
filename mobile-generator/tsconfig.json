@@ -8,7 +8,16 @@
     "strict": true,
     "target": "es2017",
     "resolveJsonModule": true,
-    "esModuleInterop": true  
+    "esModuleInterop": true,
+    "plugins":[
+      {
+        "name": "typescript-tslint-plugin",
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "configFile": "../tslint.json",
+        "suppressWhileTypeErrorsPresent": false
+      }
+    ]
   },
   "include": [
     "src/**/*"
