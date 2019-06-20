@@ -1,10 +1,10 @@
-export interface SdkVersionI {
+export interface ISdkVersion {
     version_major: number;
     version_minor: number;
 }
 
 
-export class SdkVersion implements SdkVersionI {
+export class SdkVersion implements ISdkVersion {
     version_major: number;
     version_minor: number;
     

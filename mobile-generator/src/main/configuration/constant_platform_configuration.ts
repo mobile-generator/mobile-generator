@@ -1,20 +1,20 @@
-import { MobilePlatformConfigurationJSON, MobilePlatformConfigurationI } from './mobile_platform_configuration';
-import { SdkVersionI, SdkVersion } from './sdk_version';
+import { JSONMobilePlatformConfiguration, IMobilePlatformConfiguration } from './mobile_platform_configuration';
+import { ISdkVersion, SdkVersion } from './sdk_version';
 import { PlatformType, TemplateType } from './enum';
 
-import * as ANDROID_CONF from '../ressource/config/android.json';
-import * as IOS_CONF from '../ressource/config/ios.json';
-import * as FLUTTER_CONF from '../ressource/config/flutter.json';
+import * as ANDROID_CONF from '../../ressource/config/android.json';
+import * as IOS_CONF from '../../ressource/config/ios.json';
+import * as FLUTTER_CONF from '../../ressource/config/flutter.json';
 
-export interface ConstantPlatformConfigurationJSON extends MobilePlatformConfigurationJSON {
+export interface JSONConstantPlatformConfiguration extends JSONMobilePlatformConfiguration {
     sdk_version: string[];
 }
 
-export interface ConstantPlatformConfigurationI extends MobilePlatformConfigurationI {
-    sdk_version: SdkVersionI[];
+export interface IConstantPlatformConfiguration extends IMobilePlatformConfiguration {
+    sdk_version: ISdkVersion[];
 }
 
-export class ConstantPlatformConfiguration implements ConstantPlatformConfigurationI {
+export class ConstantPlatformConfiguration implements IConstantPlatformConfiguration {
     platform: PlatformType;
     sdk_version: SdkVersion[];
     template: TemplateType[];
@@ -32,7 +32,7 @@ export class ConstantPlatformConfiguration implements ConstantPlatformConfigurat
         }
     }
 
-    static fromJSON(config: ConstantPlatformConfigurationJSON) {
+    static fromJSON(config: JSONConstantPlatformConfiguration) {
         return new this(
             (<any>PlatformType)[config.platform],
             config.sdk_version.map(str => SdkVersion.fromString(str)),

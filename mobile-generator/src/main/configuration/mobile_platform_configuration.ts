@@ -1,26 +1,26 @@
 import { TemplateType, PlatformType } from './enum';
-import { SdkVersionI, SdkVersion } from './sdk_version';
+import { ISdkVersion, SdkVersion } from './sdk_version';
 
-import * as ANDROID_CONF from '../ressource/config/android.json';
-import * as IOS_CONF from '../ressource/config/ios.json';
-import * as FLUTTER_CONF from '../ressource/config/flutter.json';
+import * as ANDROID_CONF from '../../ressource/config/android.json';
+import * as IOS_CONF from '../../ressource/config/ios.json';
+import * as FLUTTER_CONF from '../../ressource/config/flutter.json';
 
 
-export interface MobilePlatformConfigurationJSON {
+export interface JSONMobilePlatformConfiguration {
     platform: string;
     template: string[];
     sdk_min_version: string;
     sdk_target_version: string;
 }
 
-export interface MobilePlatformConfigurationI {
+export interface IMobilePlatformConfiguration {
     platform: PlatformType;
     template: TemplateType[];
-    sdk_min_version: SdkVersionI;
-    sdk_target_version: SdkVersionI;
+    sdk_min_version: ISdkVersion;
+    sdk_target_version: ISdkVersion;
 }
 
-export class MobilePlatformConfiguration implements MobilePlatformConfigurationI {
+export class MobilePlatformConfiguration implements IMobilePlatformConfiguration {
     platform: PlatformType;
     template: TemplateType[];
     sdk_min_version: SdkVersion;
@@ -37,7 +37,7 @@ export class MobilePlatformConfiguration implements MobilePlatformConfigurationI
         }
     }
 
-    static fromJSON(config: MobilePlatformConfigurationJSON) {
+    static fromJSON(config: JSONMobilePlatformConfiguration) {
         return new this(
             (<any>PlatformType)[config.platform],
             config.template.map(template => (<any>TemplateType)[template]),
