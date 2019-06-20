@@ -1,0 +1,15 @@
+{
+    "platform": "iOS",
+    "sdk_version": [
+        "8.4",
+        "9.3",
+        "10.3",
+        "12.3"
+    ],
+    "template": [
+        "SingleView",
+        "Tabbar"
+    ],
+    "sdk_min_version": "10.3",
+    "sdk_target_version": "12.3"
+}
