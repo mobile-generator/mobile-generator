@@ -1,6 +1,17 @@
-export class SdkVersion {
+export interface SdkVersionI {
     version_major: number;
     version_minor: number;
+}
+
+
+export class SdkVersion implements SdkVersionI {
+    version_major: number;
+    version_minor: number;
+    
+    static fromString(version: string) {
+        let [version_major, version_minor] = version.split('.',2).map(str => parseInt(str));
+        return new this(version_major, version_minor);
+    }
 
     constructor(version_major: number = 0, version_minor: number = 0) {
         this.version_major = version_major;
