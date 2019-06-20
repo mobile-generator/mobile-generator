@@ -1,18 +1,16 @@
 import { Command, flags } from '@oclif/command'
 import * as inquirer from 'inquirer'
-import { PlatformType } from '../main/configuration/enum';
-import { Configuration } from '../main/configuration/configuration';
-import { MobilePlatformConfiguration } from '../main/configuration/mobile-platform-configuration';
-import { GlobalConfiguration } from '../main/configuration/global-configuration';
+
+import { Configuration } from '../main/configuration/configuration'
+import { PlatformType } from '../main/configuration/enum'
+import { GlobalConfiguration } from '../main/configuration/global-configuration'
+import { MobilePlatformConfiguration } from '../main/configuration/mobile-platform-configuration'
 
 export default class Create extends Command {
-  configuration = new Configuration();
-  global_configuration = new GlobalConfiguration();
-
   static description = 'This command is used to create a new template. You need to give the targeted platform and app name'
 
   static examples = [
-    `$ mobile-generator create`,
+    '$ mobile-generator create',
   ]
 
   static flags = {
@@ -21,6 +19,9 @@ export default class Create extends Command {
 
   static args = []
 
+  configuration = new Configuration()
+  global_configuration = new GlobalConfiguration()
+
   async getCommonConfig() {
     let commonResponses: any = await inquirer.prompt([
       // Prompt for platform target
@@ -28,18 +29,18 @@ export default class Create extends Command {
         type: 'list',
         name: 'platform',
         message: 'Select targeted platform',
-        choices: Object.keys(PlatformType).map(key => ({ name: key, value: (<any>PlatformType)[key] })),
+        choices: Object.keys(PlatformType).map(key => ({ name: key, value: (PlatformType as any)[key] })),
       },
       // Prompt for app name
       {
         type: 'input',
         name: 'app_name',
         message: "What's your app name",
-        validate: function validateAppName(name) {
-          return name !== '';
+        validate(name) {
+          return name !== ''
         },
-        default: function () {
-          return 'my-app';
+        default() {
+          return 'my-app'
         }
       },
       // Prompt for app id
@@ -47,11 +48,11 @@ export default class Create extends Command {
         type: 'input',
         name: 'app_id',
         message: "What's your app id",
-        validate: function validateAppId(name) {
-          return name !== '';
+        validate(name) {
+          return name !== ''
         },
-        default: function () {
-          return 'com.mycompany.myapp';
+        default() {
+          return 'com.mycompany.myapp'
         }
       }
     ])
@@ -100,7 +101,7 @@ export default class Create extends Command {
         {
           type: 'list',
           name: 'value',
-          message: `What kind of application template would you use ?`,
+          message: 'What kind of application template would you use ?',
           choices: this.configuration.mobile_platform_configuration.template
             .map(template => ({ name: template.toString(), value: template })),
         }
@@ -112,7 +113,7 @@ export default class Create extends Command {
         {
           type: 'confirm',
           name: 'value',
-          message: `Will your application needs internet access ?`,
+          message: 'Will your application needs internet access ?',
         }
       ])
 
@@ -121,15 +122,13 @@ export default class Create extends Command {
     }
   }
 
-
   async run() {
-    const { args, flags } = this.parse(Create)
+    // const { args, flags } = this.parse(Create)
 
-    this.getCommonConfig()
-
-    this.getSpecificConfig()
-
-    this.log(`Configuration ${this.configuration.toString()}`)
+    this.getCommonConfig().then(() =>
+      this.getSpecificConfig().then(() =>
+        this.log(`Configuration ${this.configuration.toString()}`)
+      )
+      , () => this.exit(1))
   }
 }
-
