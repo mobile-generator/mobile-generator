@@ -1,5 +1,5 @@
-import { PlatformType } from './enum'
 import { ConstantPlatformConfiguration } from './constant-platform-configuration'
+import { PlatformType } from './enum'
 
 export class GlobalConfiguration {
     platform = Object.keys(PlatformType).map(key => ConstantPlatformConfiguration.fromPlatformType((PlatformType as any)[key]))
