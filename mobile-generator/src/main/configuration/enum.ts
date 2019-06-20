@@ -9,4 +9,3 @@ export enum PlatformType {
     IOS = 'iOS',
     Flutter = 'flutter',
 }
-
