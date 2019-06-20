@@ -1,5 +1,5 @@
 import { TemplateType, PlatformType } from './enum';
-import { ISdkVersion, SdkVersion } from './sdk_version';
+import { ISdkVersion, SdkVersion } from './sdk-version';
 
 import * as ANDROID_CONF from '../../ressource/config/android.json';
 import * as IOS_CONF from '../../ressource/config/ios.json';

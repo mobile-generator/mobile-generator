@@ -1,10 +1,10 @@
-import { JSONMobilePlatformConfiguration, IMobilePlatformConfiguration } from './mobile-platform-configuration';
-import { ISdkVersion, SdkVersion } from './sdk_version';
+import { IMobilePlatformConfiguration, JSONMobilePlatformConfiguration } from './mobile-platform-configuration';
+import { ISdkVersion, SdkVersion } from './sdk-version';
 import { PlatformType, TemplateType } from './enum';
 
 import * as ANDROID_CONF from '../../ressource/config/android.json';
-import * as IOS_CONF from '../../ressource/config/ios.json';
 import * as FLUTTER_CONF from '../../ressource/config/flutter.json';
+import * as IOS_CONF from '../../ressource/config/ios.json';
 
 export interface JSONConstantPlatformConfiguration extends JSONMobilePlatformConfiguration {
     sdk_version: string[];
