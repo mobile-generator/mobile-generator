@@ -14,4 +14,11 @@ describe('hello', () => {
     .it('runs hello --name jeff', ctx => {
       expect(ctx.stdout).to.contain('hello jeff')
     })
+
+  test
+    .stdout()
+    .command(['hello', '--force', '--file=test.file'])
+    .it('runs hello --force --file test.file', ctx => {
+      expect(ctx.stdout).to.contain('--force')
+    })
 })
