@@ -7,5 +7,5 @@ export enum TemplateType {
 export enum PlatformType {
     Android = 'Android',
     IOS = 'iOS',
-    Flutter = 'flutter',
+    Flutter = 'Flutter',
 }

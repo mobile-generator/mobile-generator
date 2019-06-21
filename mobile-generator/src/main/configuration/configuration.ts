@@ -12,7 +12,7 @@ export class Configuration {
     // Application id, example: com.mycompany.myapp
     app_id: string
     // Configuration for chosen platform
-    mobile_platform_configuration: UserPlatformConfiguration
+    platform_configuration: UserPlatformConfiguration
     // Wether or not give application access to internet
     internet_permission: boolean
 
@@ -20,7 +20,7 @@ export class Configuration {
     constructor() {
         this.app_name = ''
         this.app_id = ''
-        this.mobile_platform_configuration = UserPlatformConfiguration.fromJSON(ANDROID_CONF)
+        this.platform_configuration = UserPlatformConfiguration.fromJSON(ANDROID_CONF)
         this.internet_permission = false
     }
 
