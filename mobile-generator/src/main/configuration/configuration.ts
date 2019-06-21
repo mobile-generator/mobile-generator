@@ -1,21 +1,31 @@
 import * as ANDROID_CONF from '../../ressource/config/android.json'
 
-import { MobilePlatformConfiguration } from './mobile-platform-configuration'
+import { UserPlatformConfiguration } from './user-platform-configuration'
 
+/* Configuration
+ * This class represent the configuration the user will set.
+ * It will be set throughout the questions
+ */
 export class Configuration {
+    // Application name, example: my-app
     app_name: string
+    // Application id, example: com.mycompany.myapp
     app_id: string
-    mobile_platform_configuration: MobilePlatformConfiguration
+    // Configuration for chosen platform
+    mobile_platform_configuration: UserPlatformConfiguration
+    // Wether or not give application access to internet
     internet_permission: boolean
 
+    // Constructor
     constructor() {
         this.app_name = ''
         this.app_id = ''
-        this.mobile_platform_configuration = MobilePlatformConfiguration.fromJSON(ANDROID_CONF)
+        this.mobile_platform_configuration = UserPlatformConfiguration.fromJSON(ANDROID_CONF)
         this.internet_permission = false
     }
 
+    // toString: display class isntance values
     toString() {
-        return JSON.stringify(this, null, 4)
+        return 'Configuration ' + JSON.stringify(this, null, 4)
     }
 }

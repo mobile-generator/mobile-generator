@@ -4,7 +4,7 @@ import * as inquirer from 'inquirer'
 import { Configuration } from '../main/configuration/configuration'
 import { PlatformType } from '../main/configuration/enum'
 import { GlobalConfiguration } from '../main/configuration/global-configuration'
-import { MobilePlatformConfiguration } from '../main/configuration/mobile-platform-configuration'
+import { UserPlatformConfiguration } from '../main/configuration/user-platform-configuration'
 
 export default class Create extends Command {
   static description = 'This command is used to create a new template. You need to give the targeted platform and app name'
@@ -59,7 +59,7 @@ export default class Create extends Command {
 
     this.configuration.app_name = commonResponses.app_name
     this.configuration.app_id = commonResponses.app_id
-    this.configuration.mobile_platform_configuration = MobilePlatformConfiguration.fromPlatformType(commonResponses.platform)
+    this.configuration.mobile_platform_configuration = UserPlatformConfiguration.fromPlatformType(commonResponses.platform)
 
   }
 
@@ -127,7 +127,7 @@ export default class Create extends Command {
 
     this.getCommonConfig().then(() =>
       this.getSpecificConfig().then(() =>
-        this.log(`Configuration ${this.configuration.toString()}`)
+        this.log(`${this.configuration.toString()}`)
       )
       , () => this.exit(1))
   }

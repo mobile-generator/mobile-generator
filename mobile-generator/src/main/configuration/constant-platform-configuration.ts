@@ -3,15 +3,17 @@ import * as FLUTTER_CONF from '../../ressource/config/flutter.json'
 import * as IOS_CONF from '../../ressource/config/ios.json'
 
 import { PlatformType, TemplateType } from './enum'
-import { IMobilePlatformConfiguration, JSONMobilePlatformConfiguration } from './mobile-platform-configuration'
+import { IPlatformConfiguration, JSONPlatformConfiguration } from './platform-configuration.js'
 import { ISdkVersion, SdkVersion } from './sdk-version'
 
-export interface JSONConstantPlatformConfiguration extends JSONMobilePlatformConfiguration {
+export interface JSONConstantPlatformConfiguration extends JSONPlatformConfiguration {
     sdk_version: string[]
+    template: string[]
 }
 
-export interface IConstantPlatformConfiguration extends IMobilePlatformConfiguration {
+export interface IConstantPlatformConfiguration extends IPlatformConfiguration {
     sdk_version: ISdkVersion[]
+    template: TemplateType[]
 }
 
 export class ConstantPlatformConfiguration implements IConstantPlatformConfiguration {

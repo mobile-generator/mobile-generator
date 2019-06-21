@@ -2,24 +2,22 @@ import * as ANDROID_CONF from '../../ressource/config/android.json'
 import * as FLUTTER_CONF from '../../ressource/config/flutter.json'
 import * as IOS_CONF from '../../ressource/config/ios.json'
 
+import { JSONConstantPlatformConfiguration } from './constant-platform-configuration'
 import { PlatformType, TemplateType } from './enum'
-import { ISdkVersion, SdkVersion } from './sdk-version'
+import { JSONPlatformConfiguration } from './platform-configuration'
+import { SdkVersion } from './sdk-version'
 
-export interface JSONMobilePlatformConfiguration {
+export interface JSONUserPlatformConfiguration extends JSONPlatformConfiguration {
     platform: string
-    template: string[]
-    sdk_min_version: string
-    sdk_target_version: string
+    template: string
 }
 
-export interface IMobilePlatformConfiguration {
+export interface IUserPlatformConfiguration {
     platform: PlatformType
-    template: TemplateType[]
-    sdk_min_version: ISdkVersion
-    sdk_target_version: ISdkVersion
+    template: TemplateType
 }
 
-export class MobilePlatformConfiguration implements IMobilePlatformConfiguration {
+export class UserPlatformConfiguration implements IUserPlatformConfiguration {
     static fromPlatformType(platform: PlatformType) {
         switch (platform) {
             case PlatformType.Android:
@@ -31,23 +29,23 @@ export class MobilePlatformConfiguration implements IMobilePlatformConfiguration
         }
     }
 
-    static fromJSON(config: JSONMobilePlatformConfiguration) {
+    static fromJSON(config: JSONConstantPlatformConfiguration) {
         return new this(
             (PlatformType as any)[config.platform],
-            config.template.map(template => (TemplateType as any)[template]),
+            (TemplateType as any)[config.template[0]],
             SdkVersion.fromString(config.sdk_min_version),
             SdkVersion.fromString(config.sdk_target_version)
         )
     }
 
     platform: PlatformType
-    template: TemplateType[]
+    template: TemplateType
     sdk_min_version: SdkVersion
     sdk_target_version: SdkVersion
 
     constructor(
         platform: PlatformType,
-        template: TemplateType[],
+        template: TemplateType,
         sdk_min_version: SdkVersion,
         sdk_target_version: SdkVersion
     ) {
