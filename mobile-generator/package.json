@@ -2,15 +2,18 @@
   "name": "mobile-generator",
   "description": "¯\\_(ツ)_/¯",
   "version": "0.0.0",
-  "author": "--",
+  "author": "ippon",
   "bin": {
     "mobile-generator": "./bin/run"
   },
-  "bugs": "--",
+  "bugs": "https://fr.ippon.tech/",
   "dependencies": {
     "@oclif/command": "^1.5.14",
     "@oclif/config": "^1.13.0",
     "@oclif/plugin-help": "^2.2.0",
+    "@types/fs-extra": "^7.0.0",
+    "@types/mustache": "^0.8.32",
+    "fs-extra": "^8.0.1",
     "mocha": "^6.1.4",
     "mustache": "^3.0.1",
     "tslib": "^1.10.0"
@@ -40,7 +43,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "--",
+  "homepage": "https://fr.ippon.tech/",
   "keywords": [
     "oclif"
   ],
@@ -53,14 +56,15 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "--",
+  "repository": "https://fr.ippon.tech/",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -p test -t stylish",
     "tsc": "tsc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --reporter lcov --extension .ts mocha --forbid-only \"test/**/*.spec.ts\"",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "test2": "oclif-dev readme"
   },
   "types": "lib/index.d.ts"
 }

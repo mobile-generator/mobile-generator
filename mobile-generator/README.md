@@ -3,15 +3,16 @@ mobile-generator
 
 ¯\\_(ツ)_/¯
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+<!-- [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/mobile-generator.svg)](https://npmjs.org/package/mobile-generator)
 [![Downloads/week](https://img.shields.io/npm/dw/mobile-generator.svg)](https://npmjs.org/package/mobile-generator)
-[![License](https://img.shields.io/npm/l/mobile-generator.svg)](https://github.com/zephylac/mobile-generator/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/mobile-generator.svg)](https://github.com/zephylac/mobile-generator/blob/master/package.json) -->
 
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
 <!-- usage -->
 ```sh-session
@@ -28,8 +29,24 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`mobile-generator create`](#mobile-generator-create)
 * [`mobile-generator hello [FILE]`](#mobile-generator-hello-file)
 * [`mobile-generator help [COMMAND]`](#mobile-generator-help-command)
+
+## `mobile-generator create`
+
+This command is used to create a new template. You need to give the targeted platform and app name
+
+```
+USAGE
+  $ mobile-generator create
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ mobile-generator create
+```
 
 ## `mobile-generator hello [FILE]`
 
@@ -43,22 +60,6 @@ OPTIONS
   -f, --force
   -h, --help       show CLI help
   -n, --name=name  name to print
-
-EXAMPLE
-  $ mobile-generator hello
-  hello world from ./src/hello.ts!
-```
-
-## `mobile-generator hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ mobile-generator hello [FILE]
-
-OPTIONS
-  -h, --help       show CLI help
 
 EXAMPLE
   $ mobile-generator hello
@@ -80,4 +81,5 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
 <!-- commandsstop -->
