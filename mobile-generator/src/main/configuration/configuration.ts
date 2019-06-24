@@ -24,7 +24,18 @@ export class Configuration {
         this.internet_permission = false
     }
 
-    // toString: display class isntance values
+    /**
+     * @method getTemplateDirName
+     * @returns `string`: directory name of the corresponding template
+     */
+    getTemplateDirName() {
+        return (this.platform_configuration.platform + '-' + this.platform_configuration.template + '-template').toLowerCase()
+    }
+
+    /**
+     * @method toString
+     * @returns `string`: display class instance values
+     */
     toString() {
         return 'Configuration ' + JSON.stringify(this, null, 4)
     }
