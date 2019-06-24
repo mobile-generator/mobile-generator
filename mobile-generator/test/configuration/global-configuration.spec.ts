@@ -9,8 +9,8 @@ describe('GlobalConfiguration', function () {
     describe('getPlatformConfiguration', function () {
         it('initialize with correct values', function () {
             expect(configuration.getPlatformConfiguration(PlatformType.Android).platform).to.be.equal(PlatformType.Android)
-            expect(configuration.getPlatformConfiguration(PlatformType.Flutter)).to.be.equal(PlatformType.Flutter)
-            expect(configuration.getPlatformConfiguration(PlatformType.IOS)).to.be.equal(PlatformType.IOS)
+            expect(configuration.getPlatformConfiguration(PlatformType.Flutter).platform).to.be.equal(PlatformType.Flutter)
+            expect(configuration.getPlatformConfiguration(PlatformType.IOS).platform).to.be.equal(PlatformType.IOS)
         })
     })
 })

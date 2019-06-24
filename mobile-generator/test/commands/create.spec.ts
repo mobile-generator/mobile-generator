@@ -1,11 +1,10 @@
-// import { expect, test } from '@oclif/test'
+import { expect, test } from '@oclif/test'
 
-describe('create', () => {
-/*    test
+describe('Create commands', function () {
+    test
     .stdout()
     .command(['create', '--help'])
-    .it('runs create --help', ctx => {
-      expect(ctx.stdout).to.contain('This command is used to create a new template.')
-    })
- */
+    .exit(0)
+    .do(output => expect(output.stdout).to.contain('This command is used to create a new template'))
+    .it()
 })

@@ -34,7 +34,7 @@ export class SdkVersion implements ISdkVersion {
         } else if (this.version_minor !== other_sdk.version_minor) {
             return this.version_minor - other_sdk.version_minor
         }
-        // return error
+        // return equal value
         return 0
     }
     /**
