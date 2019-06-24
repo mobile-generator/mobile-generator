@@ -5,6 +5,7 @@ import { Configuration } from '../main/configuration/configuration'
 import { PlatformType } from '../main/configuration/enum'
 import { GlobalConfiguration } from '../main/configuration/global-configuration'
 import { UserPlatformConfiguration } from '../main/configuration/user-platform-configuration'
+import { renderProject } from '../main/mustache/mustache'
 
 export default class Create extends Command {
   static description = 'This command is used to create a new template. You need to give the targeted platform and app name'
@@ -128,8 +129,12 @@ export default class Create extends Command {
     // const { args, flags } = this.parse(Create)
 
     this.getCommonConfig().then(() =>
-      this.getSpecificConfig().then(() =>
-        this.log(`${this.configuration.toString()}`)
+      this.getSpecificConfig().then(() => {
+        //this.log(`${this.configuration.toString()}`)
+        //renderProject(process.cwd(), this.configuration)
+        renderProject('/tmp/tmp1', this.configuration)
+      },
+        () => this.exit(2)
       )
       , () => this.exit(1))
   }
