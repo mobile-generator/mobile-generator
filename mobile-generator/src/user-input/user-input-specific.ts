@@ -89,7 +89,7 @@ export async function specificConfigForm(configuration: Configuration) {
             {
                 type: 'confirm',
                 name: 'value',
-                message: 'Will your application needs internet access ?',
+                message: 'Will your application need internet access ?',
             }
         ])
 
