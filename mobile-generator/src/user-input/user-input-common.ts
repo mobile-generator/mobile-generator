@@ -36,12 +36,19 @@ export async function commonConfigForm(configuration: Configuration) {
             default() {
                 return 'com.mycompany.myapp'
             }
+        },
+        // Prompt for internet permission
+        {
+            type: 'confirm',
+            name: 'internet_permission',
+            message: 'Will your application need internet access ?',
         }
     ])
 
     configuration.app_name = commonResponses.app_name
     configuration.app_id = commonResponses.app_id
     configuration.platform_configuration = UserPlatformConfiguration.fromPlatformType(commonResponses.platform)
+    configuration.internet_permission = commonResponses.internet_permission
 
     return 0
 }

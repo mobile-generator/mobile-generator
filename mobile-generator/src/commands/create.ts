@@ -1,10 +1,9 @@
 import { Command, flags } from '@oclif/command'
 
 import { Configuration } from '../configuration/configuration'
-import { GlobalConfiguration } from '../configuration/global-configuration'
 import { renderProject } from '../mustache/mustache'
 import { commonConfigForm, overwriteDestDirForm } from '../user-input/user-input-common'
-import { specificConfigForm } from '../user-input/user-input-specific'
+import { specificPlatformConfigForm } from '../user-input/user-input-specific'
 import { checkDirectory, cleanDestDir } from '../utils/io-utils'
 
 export default class Create extends Command {
@@ -21,13 +20,12 @@ export default class Create extends Command {
   static args = []
 
   configuration = new Configuration()
-  global_configuration = new GlobalConfiguration()
 
   async run() {
     // const { args, flags } = this.parse(Create)
 
     commonConfigForm(this.configuration).then(() =>
-      specificConfigForm(this.configuration).then(() => {
+      specificPlatformConfigForm(this.configuration).then(() => {
         if (checkDirectory(this.configuration)) {
           overwriteDestDirForm(this.configuration).then(() => {
             cleanDestDir(this.configuration)
