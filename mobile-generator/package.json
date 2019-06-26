@@ -13,9 +13,11 @@
     "@oclif/plugin-help": "^2.2.0",
     "@types/fs-extra": "^7.0.0",
     "@types/mustache": "^0.8.32",
+    "@types/sanitize-filename": "^1.1.28",
     "fs-extra": "^8.0.1",
     "mocha": "^6.1.4",
     "mustache": "^3.0.1",
+    "sanitize-filename": "^1.6.1",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
