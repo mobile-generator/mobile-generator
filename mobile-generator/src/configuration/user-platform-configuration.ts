@@ -1,6 +1,6 @@
-import * as ANDROID_CONF from '../../ressource/config/android.json'
-import * as FLUTTER_CONF from '../../ressource/config/flutter.json'
-import * as IOS_CONF from '../../ressource/config/ios.json'
+import * as ANDROID_CONF from '../ressource/config/android.json'
+import * as FLUTTER_CONF from '../ressource/config/flutter.json'
+import * as IOS_CONF from '../ressource/config/ios.json'
 
 import { JSONConstantPlatformConfiguration } from './constant-platform-configuration'
 import { PlatformType, TemplateType } from './enum'

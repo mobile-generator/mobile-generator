@@ -1,4 +1,4 @@
-import * as ANDROID_CONF from '../../ressource/config/android.json'
+import * as ANDROID_CONF from '../ressource/config/android.json'
 
 import { UserPlatformConfiguration } from './user-platform-configuration'
 
