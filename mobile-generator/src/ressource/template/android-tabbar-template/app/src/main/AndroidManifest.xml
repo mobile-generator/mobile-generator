@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="{{app_id}}.mytabbedapp">
 
+    {{#permission_internet}}
+    <uses-permission android:name="android.permission.INTERNET" />
+    {{/permission_internet}}
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
