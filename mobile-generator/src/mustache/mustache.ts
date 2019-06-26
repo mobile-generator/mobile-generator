@@ -4,6 +4,8 @@ import * as Mustache from 'mustache'
 import * as path from 'path'
 
 import { Configuration } from '../configuration/configuration'
+import { createTempDir, moveTempDirToDest } from '../utils/io-utils'
+import { cleanString } from '../utils/string-utils'
 
 import { MustacheData } from './mustache-data'
 
@@ -14,7 +16,7 @@ export function mustacheFile(src: string, dest: string, config: MustacheData) {
 export function mustacheDirectory(src: string, dest: string, config: MustacheData) {
     readdir(src, function (err, files) {
         if (err) {
-          process.exit(1)
+            process.exit(1)
         }
 
         files.forEach(function (file) {
@@ -23,7 +25,7 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
 
             stat(srcPath, function (error, stat) {
                 if (error) {
-                  return
+                    return
                 }
 
                 if (stat.isFile()) {
@@ -62,10 +64,28 @@ function buildAppIdTreeIfNecessary(directory: string, app_id: string) {
     return directory
 }
 
-export function renderProject(dest: string, config: Configuration) {
-    // Render template
-    let data: any = config
-    data.platform_configuration.sdk_min_version = config.platform_configuration.sdk_min_version.toString()
-    data.platform_configuration.sdk_target_version = config.platform_configuration.sdk_target_version.toString()
-    mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName() , dest, MustacheData.fromConfiguration(config))
+export function renderProject(config: Configuration) {
+    // Destination path
+    const destPath = path.join(process.cwd(), '/', cleanString(config.app_name), '/', cleanString(config.platform_configuration.platform))
+
+    // Create temporary dir
+
+    //const tempDir = '/tmp/' + config.app_name + Math.floor(Math.random() * 900000 + 100000).toString()
+
+    let tempPath = ''
+    createTempDir(config).then(path => {
+        tempPath = path + '/' + cleanString(config.platform_configuration.platform)
+
+        // Render template
+        let data: any = config
+        data.platform_configuration.sdk_min_version = config.platform_configuration.sdk_min_version.toString()
+        data.platform_configuration.sdk_target_version = config.platform_configuration.sdk_target_version.toString()
+
+        mustacheDirectory(__dirname + '/../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
+
+        moveTempDirToDest(config, path).then(() => {}, () => {})
+    }, err => err)
+
+    //console.log(tempDir)
+    //console.log(tempDirPath)
 }
