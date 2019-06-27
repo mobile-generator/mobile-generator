@@ -1,4 +1,4 @@
-package {{app_id}}
+package {{app_id}}.mydrawerapp
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton

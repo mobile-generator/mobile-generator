@@ -1,4 +1,4 @@
-package {{app_id}}
+package {{app_id}}.myandroidapp
 
 import org.junit.Test
 

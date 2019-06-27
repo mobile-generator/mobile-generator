@@ -1,4 +1,4 @@
-package {{app_id}}
+package {{app_id}}.myandroidapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package {{app_id}}
+package {{app_id}}.mydrawerapp
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

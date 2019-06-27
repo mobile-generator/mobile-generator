@@ -1,4 +1,4 @@
-package {{app_id}}
+package {{app_id}}.mydrawerapp
 
 import org.junit.Test
 
