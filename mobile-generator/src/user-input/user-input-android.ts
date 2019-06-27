@@ -70,16 +70,6 @@ export async function androidConfigForm(configuration: Configuration) {
 
     configuration.platform_configuration.template = template.value
 
-    let internet_permission: any = await inquirer.prompt([
-        {
-            type: 'confirm',
-            name: 'value',
-            message: 'Will your application need internet access ?',
-        }
-    ])
-
-    configuration.internet_permission = internet_permission.value
-
     return true
 
 }

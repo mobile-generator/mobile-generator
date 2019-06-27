@@ -1,5 +1,9 @@
 import { Configuration } from '../configuration/configuration'
 
+/**
+ * Translate user configuration data to data
+ * that Mustache can use.
+ */
 export class MustacheData {
     static fromConfiguration(config: Configuration) {
         return new this(

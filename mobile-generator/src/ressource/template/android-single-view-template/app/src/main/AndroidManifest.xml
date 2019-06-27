@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="{{app_id}}" >
 
-    {{#permission_internet}}
+    {{#internet_permission}}
     <uses-permission android:name="android.permission.INTERNET" />
-    {{/permission_internet}} 
+    {{/internet_permission}} 
 
     <application
         android:allowBackup="true"
