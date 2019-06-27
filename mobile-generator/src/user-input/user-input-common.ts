@@ -61,7 +61,7 @@ export async function commonConfigForm(configuration: Configuration) {
         }
     ])
 
-    configuration.app_id = commonResponses.app_id + `.${stringToPackageNameFormat(configuration.app_name)}`
+    configuration.app_id = commonResponses.app_id
     configuration.internet_permission = commonResponses.internet_permission
 
     return 0
