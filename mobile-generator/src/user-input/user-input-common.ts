@@ -3,20 +3,26 @@ import * as inquirer from 'inquirer'
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
 import { UserPlatformConfiguration } from '../configuration/user-platform-configuration'
+import { stringToPackageNameFormat, validatePackageName } from '../utils/string-utils'
 
 export async function commonConfigForm(configuration: Configuration) {
-    let commonResponses: any = await inquirer.prompt([
+    let platform: any = await inquirer.prompt([
         // Prompt for platform target
         {
             type: 'list',
-            name: 'platform',
-            message: 'Select targeted platform',
+            name: 'value',
+            message: 'Select a target platform',
             choices: Object.keys(PlatformType).map(key => ({ name: key, value: (PlatformType as any)[key] })),
         },
+    ])
+
+    configuration.platform_configuration = UserPlatformConfiguration.fromPlatformType(platform.value)
+
+    let app_name: any = await inquirer.prompt([
         // Prompt for app name
         {
             type: 'input',
-            name: 'app_name',
+            name: 'value',
             message: "What's your app name",
             validate(name) {
                 return name !== ''
@@ -26,15 +32,25 @@ export async function commonConfigForm(configuration: Configuration) {
             }
         },
         // Prompt for app id
+    ])
+
+    configuration.app_name = app_name.value
+
+    let commonResponses: any = await inquirer.prompt([
+
         {
             type: 'input',
             name: 'app_id',
-            message: "What's your app id",
-            validate(name) {
-                return name !== ''
+            message: getQuestionGroupNameOrAppId(configuration),
+            validate: validatePackageName,
+            transformer(input) {
+                if (input !== '') {
+                    return input + `.${stringToPackageNameFormat(configuration.app_name)}`
+                }
+                return ''
             },
             default() {
-                return 'com.mycompany.myapp'
+                return `com.mycompany.${stringToPackageNameFormat(configuration.app_name)}`
             }
         },
         // Prompt for internet permission
@@ -45,9 +61,7 @@ export async function commonConfigForm(configuration: Configuration) {
         }
     ])
 
-    configuration.app_name = commonResponses.app_name
-    configuration.app_id = commonResponses.app_id
-    configuration.platform_configuration = UserPlatformConfiguration.fromPlatformType(commonResponses.platform)
+    configuration.app_id = commonResponses.app_id + `.${stringToPackageNameFormat(configuration.app_name)}`
     configuration.internet_permission = commonResponses.internet_permission
 
     return 0
@@ -63,4 +77,12 @@ export async function overwriteDestDirForm(configuration: Configuration) {
         }
     ])
     return overwrite.value
+}
+
+function getQuestionGroupNameOrAppId(configuration: Configuration) {
+    switch (configuration.platform_configuration.platform) {
+        case(PlatformType.Android): return 'What is your group name'
+        case(PlatformType.Flutter): return 'What\'s your group name/app id'
+        case(PlatformType.IOS): return 'What\'s your app id'
+    }
 }
