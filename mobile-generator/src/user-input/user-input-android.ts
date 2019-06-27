@@ -80,6 +80,6 @@ export async function androidConfigForm(configuration: Configuration) {
 
     configuration.internet_permission = internet_permission.value
 
-    return 0
+    return true
 
 }

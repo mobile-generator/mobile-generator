@@ -45,6 +45,6 @@ export async function iosConfigForm(configuration: Configuration) {
 
     configuration.platform_configuration.template = template.value
 
-    return 0
+    return true
 
 }
