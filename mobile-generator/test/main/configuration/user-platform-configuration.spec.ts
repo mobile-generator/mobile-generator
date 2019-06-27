@@ -7,8 +7,8 @@ import { expect } from '@oclif/test'
  * import * as IOS_CONF from '../../../ressource/config/ios.json'
  */
 
-import { ConstantPlatformConfiguration } from '../../src/main/configuration/constant-platform-configuration'
-import { PlatformType } from '../../src/main/configuration/enum'
+import { ConstantPlatformConfiguration } from '../../../src/main/configuration/constant-platform-configuration'
+import { PlatformType } from '../../../src/main/configuration/enum'
 
 describe('ConstantPlatformConfiguration', function () {
     let configuration = ConstantPlatformConfiguration.fromPlatformType(PlatformType.Android)

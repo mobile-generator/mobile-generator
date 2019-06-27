@@ -1,8 +1,8 @@
-import * as ANDROID_CONF from '../ressource/config/android.json'
+import * as ANDROID_CONF from '../../ressource/config/android.json'
 
 import { UserPlatformConfiguration } from './user-platform-configuration'
 
-/* Configuration
+/**
  * This class represent the configuration the user will set.
  * It will be set throughout the questions
  */
@@ -16,25 +16,26 @@ export class Configuration {
     // Wether or not give application access to internet
     internet_permission: boolean
 
-    // Constructor
     constructor() {
-        this.app_name = ''
-        this.app_id = ''
+        this.app_name = 'my-App'
+        this.app_id = 'com.mycompany.my_app'
         this.platform_configuration = UserPlatformConfiguration.fromJSON(ANDROID_CONF)
         this.internet_permission = false
     }
 
     /**
-     * @method getTemplateDirName
+     * getTemplateDirName
      * @returns `string`: directory name of the corresponding template
+     * @summary return template directory corresponding to configuration
      */
     getTemplateDirName() {
         return (this.platform_configuration.platform + '-' + this.platform_configuration.template + '-template').toLowerCase()
     }
 
     /**
-     * @method toString
+     * toString
      * @returns `string`: display class instance values
+     * @summary Returns class information
      */
     toString() {
         return 'Configuration ' + JSON.stringify(this, null, 4)

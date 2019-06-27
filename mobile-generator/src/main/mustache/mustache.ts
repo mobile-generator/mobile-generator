@@ -14,7 +14,7 @@ import { MustacheData } from './mustache-data'
  * @param src source file which contains template code with Mustache
  * @param dest destination file to output filled template
  * @param config contains configuration which will replace values in the template file
- * Fill in template file according to user configuration
+ * @summary Fill in template file according to user configuration
  */
 export function mustacheFile(src: string, dest: string, config: MustacheData) {
     writeFileSync(dest, Mustache.render(readFileSync(src).toString(), config))
@@ -25,7 +25,7 @@ export function mustacheFile(src: string, dest: string, config: MustacheData) {
  * @param src source directory
  * @param dest output directory
  * @param config contains configuration which will replace values in the template file
- * Fill in template directory according to user configuration
+ * @summary Fill in template directory according to user configuration
  */
 export function mustacheDirectory(src: string, dest: string, config: MustacheData) {
     readdir(src, function (err, files) {
@@ -73,6 +73,7 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
  * checkFileExtension
  * @param file filename path with extension
  * @returns returns `true` if the file is not blacklisted otherwise `false`
+ * @summary
  * This function will check if the file is in the blacklist
  * and avoid error with Mustache parser.
  */
@@ -90,7 +91,7 @@ function checkFileExtension(file: string) {
  * buildAppIdTreeIfNecessary
  * @param directory directory path to check
  * @param package_name package name
- * This function will create folder tree according to package name
+ * @summary This function will create folder tree according to package name
  */
 function buildAppIdTreeIfNecessary(directory: string, package_name: string) {
     /* Package name's folder tree are under :
@@ -110,7 +111,7 @@ function buildAppIdTreeIfNecessary(directory: string, package_name: string) {
 /**
  * renderProject
  * @param config contains the configuration entered by the user
- * This will create the project according to the user setting.
+ * @summary This will create the project according to the user setting.
  */
 export function renderProject(config: Configuration) {
     // Create temporary directory in /tmp with unique name
@@ -118,7 +119,7 @@ export function renderProject(config: Configuration) {
         const tempPath = path + '/' + cleanString(config.platform_configuration.platform)
 
         // Render project inside the temporary directory
-        mustacheDirectory(__dirname + '/../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
+        mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
 
         // Move project from temp dir to real dest dir
         moveTempDirToDest(config, path).then(() => {}, () => {})

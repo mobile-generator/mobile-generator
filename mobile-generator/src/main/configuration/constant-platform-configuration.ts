@@ -1,22 +1,36 @@
-import * as ANDROID_CONF from '../ressource/config/android.json'
-import * as FLUTTER_CONF from '../ressource/config/flutter.json'
-import * as IOS_CONF from '../ressource/config/ios.json'
+import * as ANDROID_CONF from '../../ressource/config/android.json'
+import * as FLUTTER_CONF from '../../ressource/config/flutter.json'
+import * as IOS_CONF from '../../ressource/config/ios.json'
 
 import { PlatformType, TemplateType } from './enum'
-import { IPlatformConfiguration, JSONPlatformConfiguration } from './platform-configuration.js'
+import { IPlatformConfiguration, JSONPlatformConfiguration } from './platform-configuration'
 import { ISdkVersion, SdkVersion } from './sdk-version'
 
+/**
+ * Interface used to load constant configuration for platform from JSON file
+ */
 export interface JSONConstantPlatformConfiguration extends JSONPlatformConfiguration {
     sdk_version: string[]
     template: string[]
 }
 
+/**
+ * Interface for constant configuration for a specific platform
+ */
 export interface IConstantPlatformConfiguration extends IPlatformConfiguration {
     sdk_version: ISdkVersion[]
     template: TemplateType[]
 }
 
+/**
+ * Class which represent constant configuration for a specific platform
+ */
 export class ConstantPlatformConfiguration implements IConstantPlatformConfiguration {
+    /**
+     * fromPlatformType
+     * @param platform chosen platform
+     * @summary Load configuration for given platform
+     */
     static fromPlatformType(platform: PlatformType) {
         switch (platform) {
             case PlatformType.Android:
@@ -28,6 +42,11 @@ export class ConstantPlatformConfiguration implements IConstantPlatformConfigura
         }
     }
 
+    /**
+     * fromJSON
+     * @param config JSON configuration
+     * @summary Parse JSON and return configuration
+     */
     static fromJSON(config: JSONConstantPlatformConfiguration) {
         return new this(
             (PlatformType as any)[config.platform],

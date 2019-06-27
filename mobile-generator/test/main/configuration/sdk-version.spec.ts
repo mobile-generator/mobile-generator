@@ -1,6 +1,6 @@
 import { expect } from '@oclif/test'
 
-import { SdkVersion } from '../../src/main/configuration/sdk-version'
+import { SdkVersion } from '../../../src/main/configuration/sdk-version'
 
 describe('SdkVersion', function () {
     let sdk_0 = new SdkVersion()

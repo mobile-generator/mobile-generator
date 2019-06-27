@@ -1,13 +1,21 @@
+/**
+ * Interface for SDK version
+ */
 export interface ISdkVersion {
     version_major: number
     version_minor: number
 }
 
+/**
+ * SdkVersion
+ * This class is used qualify different SDK version
+ * This facilitate the comparison between version
+ */
 export class SdkVersion implements ISdkVersion {
     /**
-     * @method
+     * fromString
      * @param version: string
-     * Create SdkVersion instance from string
+     * @summary Create SdkVersion instance from string
      */
     static fromString(version: string) {
         let [version_major, version_minor] = version.split('.', 2).map(str => parseInt(str, 10))
@@ -23,10 +31,12 @@ export class SdkVersion implements ISdkVersion {
     }
 
     /**
-     * Compare two sdk version.
-     * @return value > 0 if current is newer
-     * @return value = 0 if current is equal
-     * @return value < 0 if current is older
+     * compare
+     * @returns
+     * value > 0 if current is newer
+     * value = 0 if current is equal
+     * value < 0 if current is older
+     * @summary Compare two sdk version.
      */
     compare(other_sdk: SdkVersion) {
         if (this.version_major !== other_sdk.version_major) {
@@ -38,8 +48,9 @@ export class SdkVersion implements ISdkVersion {
         return 0
     }
     /**
-     * Returns class information
+     * toString
      * @returns class info
+     * @summary Returns class information
      */
     toString() {
         return this.version_major + '.' + this.version_minor

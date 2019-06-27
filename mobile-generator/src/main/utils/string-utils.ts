@@ -3,7 +3,7 @@ import sanitize from 'sanitize-filename'
 /**
  * cleanString
  * @param str folder name
- * Create folder safe name
+ * @summary Create folder safe name
  */
 export function cleanString(str: string) {
     return sanitize(str.toLocaleLowerCase())
@@ -12,6 +12,7 @@ export function cleanString(str: string) {
 /**
  * stringToPackageNameFormat
  * @param str application name
+ * @summary
  * Reformat application name string to be compliant with Android Developers rule
  * Source: https://developer.android.com/studio/build/application-id
  */
@@ -22,6 +23,9 @@ export function stringToPackageNameFormat(str: string) {
 /**
  * validatePackageName
  * @param str string which is supposed to be android package name
+ * @returns will return a boolean value which indicates
+ * wether or not the name is a valid package name
+ * @summary This will validate package name
  */
 export function validatePackageName(str: string) {
     // Go over there for more explanation: https://stackoverflow.com/a/39331217
