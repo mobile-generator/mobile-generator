@@ -5,9 +5,16 @@ import { PlatformType } from '../configuration/enum'
 import { UserPlatformConfiguration } from '../configuration/user-platform-configuration'
 import { stringToPackageNameFormat, validatePackageName } from '../utils/string-utils'
 
+/**
+ * commonConfigForm
+ * @param configuration user configuration
+ * @returns It will returns a promise which resolve as true if there are no errors
+ * otherwise it will reject it with the error
+ * @summary It will ask for iOS specific configuration using InquirerJS
+ */
 export async function commonConfigForm(configuration: Configuration) {
+    // Prompt for platform target
     let platform: any = await inquirer.prompt([
-        // Prompt for platform target
         {
             type: 'list',
             name: 'value',
@@ -16,10 +23,11 @@ export async function commonConfigForm(configuration: Configuration) {
         },
     ])
 
+    // set prompted platform value
     configuration.platform_configuration = UserPlatformConfiguration.fromPlatformType(platform.value)
 
+    // Prompt for app name
     let app_name: any = await inquirer.prompt([
-        // Prompt for app name
         {
             type: 'input',
             name: 'value',
@@ -31,13 +39,13 @@ export async function commonConfigForm(configuration: Configuration) {
                 return 'my-app'
             }
         },
-        // Prompt for app id
     ])
 
+    // set prompted application name value
     configuration.app_name = app_name.value
 
     let commonResponses: any = await inquirer.prompt([
-
+        // Prompt for app id
         {
             type: 'input',
             name: 'app_id',
@@ -61,13 +69,24 @@ export async function commonConfigForm(configuration: Configuration) {
         }
     ])
 
+    // set prompted application ID value
     configuration.app_id = commonResponses.app_id
+    // set prompted internet permission value
     configuration.internet_permission = commonResponses.internet_permission
 
-    return 0
+    return true
 }
 
+/**
+ * overwriteDestDirForm
+ * @param configuration user configuration
+ * @returns It will returns a promise
+ * which resolve as true or false depending on the answer if there are no errors
+ * otherwise it will reject it with the error
+ * @summary It will ask if user wants to overwrite destination directory using InquirerJS
+ */
 export async function overwriteDestDirForm(configuration: Configuration) {
+    // Prompt for overwrite
     let overwrite: any = await inquirer.prompt([
         {
             type: 'confirm',
@@ -76,9 +95,17 @@ export async function overwriteDestDirForm(configuration: Configuration) {
             message: `Folder ${configuration.app_name} already exist, do you want to overwrite it`,
         }
     ])
+
+    // Returns user answer as a boolean (Yes/No)
     return overwrite.value
 }
 
+/**
+ * getQuestionGroupNameOrAppId
+ * @param configuration user configuration
+ * @returns Platform's corresponding question
+ * @summary This will return corresponding question for `app_id` configuration property
+ */
 function getQuestionGroupNameOrAppId(configuration: Configuration) {
     switch (configuration.platform_configuration.platform) {
         case(PlatformType.Android): return 'What is your group name'
