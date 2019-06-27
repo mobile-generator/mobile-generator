@@ -118,7 +118,7 @@ export function renderProject(config: Configuration) {
         const tempPath = path + '/' + cleanString(config.platform_configuration.platform)
 
         // Render project inside the temporary directory
-        mustacheDirectory(__dirname + '/../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
+        mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
 
         // Move project from temp dir to real dest dir
         moveTempDirToDest(config, path).then(() => {}, () => {})

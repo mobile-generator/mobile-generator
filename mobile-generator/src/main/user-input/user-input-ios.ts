@@ -1,7 +1,7 @@
 import * as inquirer from 'inquirer'
 
 import { Configuration } from '../configuration/configuration'
-import { ConstantPlatformConfiguration } from '../configuration/constant-platform-configuration';
+import { ConstantPlatformConfiguration } from '../configuration/constant-platform-configuration'
 import { PlatformType } from '../configuration/enum'
 
 export async function iosConfigForm(configuration: Configuration) {

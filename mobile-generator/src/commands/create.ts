@@ -1,10 +1,10 @@
 import { Command, flags } from '@oclif/command'
 
-import { Configuration } from '../configuration/configuration'
-import { renderProject } from '../mustache/mustache'
-import { commonConfigForm, overwriteDestDirForm } from '../user-input/user-input-common'
-import { specificPlatformConfigForm } from '../user-input/user-input-specific'
-import { checkDirectory, cleanDestDir } from '../utils/io-utils'
+import { Configuration } from '../main/configuration/configuration'
+import { renderProject } from '../main/mustache/mustache'
+import { commonConfigForm, overwriteDestDirForm } from '../main/user-input/user-input-common'
+import { specificPlatformConfigForm } from '../main/user-input/user-input-specific'
+import { checkDirectory, cleanDestDir } from '../main/utils/io-utils'
 
 export default class Create extends Command {
   static description = 'This command is used to create a new template. You need to give the targeted platform and app name'
