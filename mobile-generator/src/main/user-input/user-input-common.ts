@@ -1,4 +1,6 @@
+const chalkPipe = require('chalk-pipe')
 import * as inquirer from 'inquirer'
+import * as stripAnsi from 'strip-ansi'
 
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
@@ -33,10 +35,17 @@ export async function commonConfigForm(configuration: Configuration) {
             name: 'value',
             message: "What's your app name",
             validate(name) {
+                name = stripAnsi.default(name)
                 return name !== ''
             },
             default() {
-                return 'my-app'
+                return chalkPipe('orange')('my-app')
+            },
+            transformer(str) {
+                return chalkPipe('orange')(str)
+            },
+            filter(str) {
+                return stripAnsi.default(str)
             }
         },
     ])
@@ -53,12 +62,25 @@ export async function commonConfigForm(configuration: Configuration) {
             validate: validatePackageName,
             transformer(input) {
                 if (input !== '') {
-                    return input + `.${stringToPackageNameFormat(configuration.app_name)}`
+                    let tmp = input.split('.')
+                    if (tmp.length < 2) {
+                        return `${chalkPipe('yellow')(input)}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
+                    } else {
+                        return`${chalkPipe('yellow')(tmp.slice(0, -1).join('.'))}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
+                    }
                 }
                 return ''
             },
             default() {
-                return `com.mycompany.${stringToPackageNameFormat(configuration.app_name)}`
+                return `${chalkPipe('yellow')('com.mycompany')}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
+            },
+            filter(str) {
+                str = stripAnsi.default(str)
+
+                if (!str.endsWith(stringToPackageNameFormat(configuration.app_name))) {
+                    str = str + '.' + stringToPackageNameFormat(configuration.app_name)
+                }
+                return str
             }
         },
         // Prompt for internet permission
