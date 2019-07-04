@@ -33,6 +33,15 @@ export class Configuration {
     }
 
     /**
+     * getGroupName
+     * @returns `string`: group name
+     * @summary return group name (app_id without application name at the end)
+     */
+    getGroupName() {
+        return (this.app_id.split('.').slice(0, -1).join('.'))
+    }
+
+    /**
      * toString
      * @returns `string`: display class instance values
      * @summary Returns class information
