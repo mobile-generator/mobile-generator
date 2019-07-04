@@ -28,8 +28,7 @@ export async function flutterIsInstalled() {
 export async function createFlutterProject(configuration: Configuration, directory: string) {
     const loader = Loader.startWithMessage(' Creating Flutter project')
     return new Promise<string>(async function (resolve, reject) {
-        const command = `flutter create -i swift -a kotlin -t app --org ${configuration.app_id} --project-name ${stringToPackageNameFormat(configuration.app_name)} ${directory}`
-        console.log('command: ' + command)
+        const command = `flutter create -i swift -a kotlin -t app --org ${configuration.getGroupName()} --project-name ${stringToPackageNameFormat(configuration.app_name)} ${directory}`
         const { stderr } = await exec(command)
         if (stderr) {
             reject(stderr)
