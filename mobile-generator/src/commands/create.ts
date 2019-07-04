@@ -44,7 +44,7 @@ export default class Create extends Command {
     // N.B. : some requirements can be blocking others don't
     if (this.require_configuration.isAllGood()) {
       // Retrieve common config to all platform
-      commonConfigForm(this.configuration, this.require_configuration.isFlutterAvailable).then(() =>
+      await commonConfigForm(this.configuration, this.require_configuration.isFlutterAvailable).then(async () =>
 
         // Retrieve config specific to chosen platform
         specificPlatformConfigForm(this.configuration).then(async () => {
@@ -55,13 +55,15 @@ export default class Create extends Command {
               if (overwrite) {
                 // If user wants to overwrite it, we delete all contents
                 cleanDestDir(this.configuration)
+              } else {
+                process.exit(0)
               }
             }, () => {
               throw new Error('Error during overwrite dest dir')
             })
           }
           // Output results
-          renderProject(this.configuration)
+          await renderProject(this.configuration)
         },
           () => {
             throw new Error('Error during specific config')
@@ -70,5 +72,6 @@ export default class Create extends Command {
           throw new Error('Error during common config')
         })
     }
+    process.exit(0)
   }
 }
