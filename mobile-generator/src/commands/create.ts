@@ -47,13 +47,15 @@ export default class Create extends Command {
       commonConfigForm(this.configuration, this.require_configuration.isFlutterAvailable).then(() =>
 
         // Retrieve config specific to chosen platform
-        specificPlatformConfigForm(this.configuration).then(() => {
-          // Check if output directory alread exist
-          if (checkDirectory(this.configuration)) {
+        specificPlatformConfigForm(this.configuration).then(async () => {
+          // Check if output directory already exist
+          if (await checkDirectory(this.configuration)) {
             // Ask user if he wants to overwrite it
-            overwriteDestDirForm(this.configuration).then(() => {
-              // If user wants to overwrite it, we delete all contents
-              cleanDestDir(this.configuration)
+            await overwriteDestDirForm(this.configuration).then(overwrite => {
+              if (overwrite) {
+                // If user wants to overwrite it, we delete all contents
+                cleanDestDir(this.configuration)
+              }
             }, () => {
               throw new Error('Error during overwrite dest dir')
             })

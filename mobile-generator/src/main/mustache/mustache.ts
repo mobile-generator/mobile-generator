@@ -4,6 +4,8 @@ import * as Mustache from 'mustache'
 import * as path from 'path'
 
 import { Configuration } from '../configuration/configuration'
+import { PlatformType } from '../configuration/enum'
+import { createFlutterProject } from '../utils/flutter-utils'
 import { createTempDir, moveTempDirToDest } from '../utils/io-utils'
 import { cleanString } from '../utils/string-utils'
 
@@ -115,11 +117,15 @@ function buildAppIdTreeIfNecessary(directory: string, package_name: string) {
  */
 export function renderProject(config: Configuration) {
     // Create temporary directory in /tmp with unique name
-    createTempDir(config).then(path => {
+    createTempDir(config).then(async path => {
         const tempPath = path + '/' + cleanString(config.platform_configuration.platform)
 
-        // Render project inside the temporary directory
-        mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
+        if (config.platform_configuration.platform === PlatformType.Flutter) {
+            await createFlutterProject(config, tempPath)
+        } else {
+            // Render project inside the temporary directory
+            mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
+        }
 
         // Move project from temp dir to real dest dir
         moveTempDirToDest(config, path).then(() => {}, () => {})
