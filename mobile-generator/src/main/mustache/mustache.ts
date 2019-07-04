@@ -115,19 +115,23 @@ function buildAppIdTreeIfNecessary(directory: string, package_name: string) {
  * @param config contains the configuration entered by the user
  * @summary This will create the project according to the user setting.
  */
-export function renderProject(config: Configuration) {
-    // Create temporary directory in /tmp with unique name
-    createTempDir(config).then(async path => {
-        const tempPath = path + '/' + cleanString(config.platform_configuration.platform)
+export async function renderProject(config: Configuration) {
+    return new Promise<boolean>(async function (resolve, reject) {
+        // Create temporary directory in /tmp with unique name
+        createTempDir(config).then(async path => {
+            const tempPath = path + '/' + cleanString(config.platform_configuration.platform)
 
-        if (config.platform_configuration.platform === PlatformType.Flutter) {
-            await createFlutterProject(config, tempPath)
-        } else {
-            // Render project inside the temporary directory
-            mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
-        }
+            if (config.platform_configuration.platform === PlatformType.Flutter) {
+                await createFlutterProject(config, tempPath).catch(() => reject(false))
+            } else {
+                // Render project inside the temporary directory
+                mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
+            }
 
-        // Move project from temp dir to real dest dir
-        moveTempDirToDest(config, path).then(() => {}, () => {})
-    }, err => err)
+            // Move project from temp dir to real dest dir
+            await moveTempDirToDest(config, path).catch(() => reject(false))
+
+            resolve(true)
+        }, () => reject(false))
+    })
 }

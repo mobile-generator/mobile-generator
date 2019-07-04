@@ -27,14 +27,16 @@ export async function flutterIsInstalled() {
 
 export async function createFlutterProject(configuration: Configuration, directory: string) {
     const loader = Loader.startWithMessage(' Creating Flutter project')
-    return new Promise<string>(async function (resolve, reject) {
+    return new Promise<boolean>(async function (resolve, reject) {
         const command = `flutter create -i swift -a kotlin -t app --org ${configuration.getGroupName()} --project-name ${stringToPackageNameFormat(configuration.app_name)} ${directory}`
         const { stderr } = await exec(command)
         if (stderr) {
-            reject(stderr)
+            console.log(chalkPipe('red.bold')('Error when running following command: ' + command))
+            console.log(chalkPipe('red.bold')('Current error: ' + stderr))
+            reject(false)
         } else {
             loader.stop(chalkPipe('green.bold')('✓ Installation done!\n'))
-            resolve('')
+            resolve(true)
         }
     })
 }
