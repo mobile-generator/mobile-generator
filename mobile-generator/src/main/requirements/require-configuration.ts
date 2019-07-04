@@ -1,5 +1,5 @@
 const chalkPipe = require('chalk-pipe')
-import { flutterIsInstalled } from '../utils/flutter-cli'
+import { flutterIsInstalled } from '../utils/flutter-utils'
 
 /**
  * This class represent the requirements configuration.

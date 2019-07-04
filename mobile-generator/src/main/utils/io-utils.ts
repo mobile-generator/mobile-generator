@@ -1,5 +1,5 @@
-import { readdirSync, unlinkSync } from 'fs'
-import { copy, ensureDir, ensureDirSync, mkdtemp, remove } from 'fs-extra'
+import { readdirSync } from 'fs'
+import { copy, ensureDir, ensureDirSync, mkdtemp, remove, removeSync } from 'fs-extra'
 import * as path from 'path'
 
 import { Configuration } from '../configuration/configuration'
@@ -15,7 +15,7 @@ import { cleanString } from './string-utils'
  *  If directory exist but is empty, it will return false
  * @summary It will check wether or not the directory exist
  */
-export function checkDirectory(configuration: Configuration) {
+export async function checkDirectory(configuration: Configuration) {
     const dirPath = path.join(process.cwd() + '/' + cleanString(configuration.app_name) + '/' + cleanString(configuration.platform_configuration.platform))
     // Create directory if it doesn't exist
     ensureDirSync(dirPath)
@@ -33,14 +33,14 @@ export function checkDirectory(configuration: Configuration) {
  */
 export function cleanDestDir(configuration: Configuration) {
     // Retrieve destination directory path
-    const dir = path.join(process.cwd() + '/' + configuration.app_name + '/' + configuration.platform_configuration.platform)
+    const dir = path.join(process.cwd() + '/' + configuration.app_name + '/' + cleanString(configuration.platform_configuration.platform))
     // Retrieve destination directory content
     const contents = readdirSync(dir)
 
     // Loop through all files and directories and remove them
     for (const item of contents) {
         // Remove file
-        unlinkSync(path.join(dir, item))
+        removeSync(path.join(dir, item))
     }
 }
 

@@ -7,11 +7,7 @@
  */
 export async function flutterConfigForm() {
     /**
-     * TODO:
-     * Check if Flutter CLI is in PATH
-     * Tell user to add it in path if he downloaded it or
-     * Ask user if we can install it
-     * use Flutter CLI to create Flutter project
+     * For now there are no specific question regarding Flutter
      */
 
     return true
