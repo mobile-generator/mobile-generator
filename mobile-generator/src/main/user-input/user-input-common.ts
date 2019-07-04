@@ -74,7 +74,7 @@ export async function commonConfigForm(configuration: Configuration, isFlutterAv
             transformer(input) {
                 if (input !== '') {
                     let tmp = input.split('.')
-                    if (tmp.length < 2) {
+                    if (tmp.length < 3) {
                         return `${chalkPipe('yellow')(input)}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
                     } else {
                         return`${chalkPipe('yellow')(tmp.slice(0, -1).join('.'))}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
