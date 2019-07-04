@@ -14,7 +14,7 @@ import { stringToPackageNameFormat, validatePackageName } from '../utils/string-
  * otherwise it will reject it with the error
  * @summary It will ask for iOS specific configuration using InquirerJS
  */
-export async function commonConfigForm(configuration: Configuration, isFlutterInstalled: boolean) {
+export async function commonConfigForm(configuration: Configuration, isFlutterAvailable: boolean) {
     // Prompt for platform target
 
     // Retrieve available platform
@@ -22,7 +22,7 @@ export async function commonConfigForm(configuration: Configuration, isFlutterIn
     const platform_list = Object.keys(PlatformType).map(key => ({ name: key, value: (PlatformType as any)[key] }))
 
     // If Flutter is not installed we remove it from the list
-    if (!isFlutterInstalled) {
+    if (!isFlutterAvailable) {
         const flutterIndex = platform_list.findIndex(obj => obj.value === PlatformType.Flutter)
         platform_list.splice(flutterIndex, 1)
     }

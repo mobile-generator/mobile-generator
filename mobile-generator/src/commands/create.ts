@@ -44,7 +44,7 @@ export default class Create extends Command {
     // N.B. : some requirements can be blocking others don't
     if (this.require_configuration.isAllGood()) {
       // Retrieve common config to all platform
-      commonConfigForm(this.configuration, this.require_configuration.isFlutterInstalled).then(() =>
+      commonConfigForm(this.configuration, this.require_configuration.isFlutterAvailable).then(() =>
 
         // Retrieve config specific to chosen platform
         specificPlatformConfigForm(this.configuration).then(() => {
