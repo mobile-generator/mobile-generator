@@ -14,14 +14,25 @@ import { stringToPackageNameFormat, validatePackageName } from '../utils/string-
  * otherwise it will reject it with the error
  * @summary It will ask for iOS specific configuration using InquirerJS
  */
-export async function commonConfigForm(configuration: Configuration) {
+export async function commonConfigForm(configuration: Configuration, isFlutterInstalled: boolean) {
     // Prompt for platform target
+
+    // Retrieve available platform
+    // We map the retrieved platform to be compliant with InquirerJS format
+    const platform_list = Object.keys(PlatformType).map(key => ({ name: key, value: (PlatformType as any)[key] }))
+
+    // If Flutter is not installed we remove it from the list
+    if (!isFlutterInstalled) {
+        const flutterIndex = platform_list.findIndex(obj => obj.value === PlatformType.Flutter)
+        platform_list.splice(flutterIndex, 1)
+    }
+
     let platform: any = await inquirer.prompt([
         {
             type: 'list',
             name: 'value',
             message: 'Select a target platform',
-            choices: Object.keys(PlatformType).map(key => ({ name: key, value: (PlatformType as any)[key] })),
+            choices: platform_list,
         },
     ])
 

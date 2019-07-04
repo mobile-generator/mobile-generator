@@ -1,6 +1,10 @@
 import * as inquirer from 'inquirer'
-import * as util from 'util'
+import { lookpath } from 'lookpath'
 
+/**
+ * checkingLoader
+ * @summary It will display loader whilst  executing flutter commands
+ */
 export function checkingLoader() {
     const loader = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
     let i = 10
@@ -11,17 +15,18 @@ export function checkingLoader() {
     }, 100)
 }
 
-export function flutterIsInstalled() {
-    const exec = util.promisify(require('child_process').exec)
-    const { _stdout, stderr } = exec('flutter --version')
+/**
+ * flutterIsInstalled
+ * @returns It will returns a promise which resolve as true if flutter is installed
+ * otherwise it will resolve as false
+ * @summary It will check if flutter is installed
+ */
+export async function flutterIsInstalled() {
+    const path = await lookpath('flutter')
 
-    if (stderr.endsWith('command not found')) {
-        return false
-    } else {
+    // path will be undefined if `flutter` is not found in path
+    if (path) {
         return true
     }
-}
-
-export function installFlutter() {
-    console.log('installing flutter')
+    return false
 }
