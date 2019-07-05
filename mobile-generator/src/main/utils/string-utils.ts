@@ -2,12 +2,27 @@ import sanitize from 'sanitize-filename'
 import * as stripAnsi from 'strip-ansi'
 
 /**
+ * isEmpty
+ * @param obj any object
+ * @summary Return true if the object is empty or full of undefined values.
+ * Otherwise it returns false
+ */
+export function isEmpty(obj: any) {
+    for (const val of Object.values(obj)) {
+      if (val) {
+        return false
+      }
+    }
+    return true
+  }
+
+/**
  * cleanString
  * @param str folder name
  * @summary Create folder safe name
  */
 export function cleanString(str: string) {
-    return sanitize(str.toLocaleLowerCase())
+    return sanitize(str.toLowerCase())
 }
 
 /**
