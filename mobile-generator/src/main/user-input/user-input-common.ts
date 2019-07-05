@@ -1,4 +1,5 @@
 const chalkPipe = require('chalk-pipe')
+import { flags } from '@oclif/command'
 import * as inquirer from 'inquirer'
 import * as stripAnsi from 'strip-ansi'
 
@@ -6,6 +7,39 @@ import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
 import { UserPlatformConfiguration } from '../configuration/user-platform-configuration'
 import { stringToPackageNameFormat, validatePackageName } from '../utils/string-utils'
+
+/**
+ * COMMON_FLAGS
+ * Flags for common configuration
+ */
+export const COMMON_FLAGS = {
+    internet_permission: flags.boolean({description: 'Wether or not needs internet access'}),
+    overwrite_dest: flags.boolean({description: 'Wether or not overwrite destination folder'}),
+}
+
+/**
+ * commonCheckFlags
+ * @param args args passed to CLI
+ * @returns Wether or not args are correct
+ * @summary It will check args values and return true if they are valid
+ * Otherwise it will return false
+ */
+export function commonCheckFlags(args: any) {
+    return stripAnsi.default(args.app_name) !== '' && validatePackageName(args.app_id) === true
+}
+
+/**
+ * commonConfigFromArgsFlags
+ * @param args args passed to CLI
+ * @param flags flags passed to CLI
+ * @param configuration user configuration
+ * @summary It will set specific configuration for Android using flags values
+ */
+export function commonConfigFromArgsFlags(args: any, flags: any, configuration: Configuration) {
+    configuration.app_id = args.app_id + '.' + stringToPackageNameFormat(args.app_name)
+    configuration.app_name = args.app_name
+    configuration.internet_permission = flags.internet_permission
+}
 
 /**
  * commonConfigForm

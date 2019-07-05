@@ -1,3 +1,15 @@
+import { Configuration } from '../configuration/configuration'
+
+/**
+ * flutterConfigFromFlags
+ * @param flags flags passed to CLI
+ * @param configuration user configuration
+ * @summary It will set specific configuration for Flutter using flags values
+ */
+export function flutterConfigFromFlags(flags: any, configuration: Configuration) {
+    // For now Flutter doesn't require any flags
+}
+
 /**
  * flutterConfigForm
  * @param configuration user configuration
