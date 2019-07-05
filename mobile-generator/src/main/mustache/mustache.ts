@@ -50,6 +50,13 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
 
                 if (stat.isFile()) {
                     // We check if the file is blacklisted (see `checkFileExtension` doc)
+
+                    // NPM automatically renames .gitignore to .npmignore when pushing source files
+                    // To avoid any issue with the template we force the renaming
+                    if (srcPath.endsWith('.npmignore')) {
+                        srcPath.replace('.npmignore', '.gitignore')
+                    }
+
                     if (checkFileExtension(srcPath)) {
                         // Render filename
                         let renderedDest = Mustache.render(destPath, config)
