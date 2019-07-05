@@ -1,9 +1,9 @@
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
 
-import { androidConfigForm } from './user-input-android'
-import { flutterConfigForm } from './user-input-flutter'
-import { iosConfigForm } from './user-input-ios'
+import { androidConfigForm, androidConfigFromFlags } from './user-input-android'
+import { flutterConfigForm, flutterConfigFromFlags } from './user-input-flutter'
+import { iosConfigForm, iosConfigFromFlags } from './user-input-ios'
 
 /**
  * specificPlatformConfigForm
@@ -18,5 +18,19 @@ export function specificPlatformConfigForm(config: Configuration) {
         case PlatformType.Android: return androidConfigForm(config)
         case PlatformType.Flutter: return flutterConfigForm()
         case PlatformType.IOS: return iosConfigForm(config)
+    }
+}
+
+/**
+ * specificPlatformConfigFromFlags
+ * @param str platform
+ * @summary
+ * Set configuration settings for chosen platform
+ */
+export function specificPlatformConfigFromFlags(str: string, flags: any, configuration: Configuration) {
+    switch (str) {
+        case PlatformType.Android: return androidConfigFromFlags(flags, configuration)
+        case PlatformType.Flutter: return flutterConfigFromFlags(flags, configuration)
+        case PlatformType.IOS: return iosConfigFromFlags(flags, configuration)
     }
 }

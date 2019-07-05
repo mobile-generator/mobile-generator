@@ -1,8 +1,35 @@
+import { flags } from '@oclif/command'
 import * as inquirer from 'inquirer'
 
 import { Configuration } from '../configuration/configuration'
 import { ConstantPlatformConfiguration } from '../configuration/constant-platform-configuration'
 import { PlatformType } from '../configuration/enum'
+
+// Retrieve Android configuration
+const android_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.Android)
+
+/**
+ * ANDROID_FLAGS
+ * Flags for android configuration
+ */
+export const ANDROID_FLAGS = {
+    android_min_sdk: flags.string({description: 'Android Min SDK', options: android_config.sdk_version.map(version => version.toString()) }),
+    android_target_sdk: flags.string({description: 'Android Target SDK', options: android_config.sdk_version.map(version => version.toString()) }),
+    android_template: flags.string({description: 'Android Template SDK', options: android_config.template }),
+}
+
+/**
+ * androidConfigFromFlags
+ * @param flags flags passed to CLI
+ * @param configuration user configuration
+ * @summary It will set specific configuration for Android using flags values
+ */
+export function androidConfigFromFlags(flags: any, configuration: Configuration) {
+    configuration.platform_configuration.platform = PlatformType.Android
+    configuration.platform_configuration.sdk_min_version = flags.sdk_min_version
+    configuration.platform_configuration.sdk_target_version = flags.sdk_target_version
+    configuration.platform_configuration.template = flags.template
+}
 
 /**
  * androidConfigForm
@@ -12,9 +39,6 @@ import { PlatformType } from '../configuration/enum'
  * @summary It will ask for Android specific configuration using InquirerJS
  */
 export async function androidConfigForm(configuration: Configuration) {
-    // Retrieve Android configuration
-    const android_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.Android)
-
     // Retrieve advised sdk version index from the SDK version list
     const advised_target_version_index = android_config
         .sdk_version

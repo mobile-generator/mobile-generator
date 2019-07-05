@@ -1,8 +1,33 @@
+import { flags } from '@oclif/command'
 import * as inquirer from 'inquirer'
 
 import { Configuration } from '../configuration/configuration'
 import { ConstantPlatformConfiguration } from '../configuration/constant-platform-configuration'
 import { PlatformType } from '../configuration/enum'
+
+// Retrieve iOS configuration
+const ios_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.IOS)
+
+/**
+ * IOS_FLAGS
+ * Flags for android configuration
+ */
+export const IOS_FLAGS = {
+    ios_min_sdk: flags.string({description: 'iOS Min SDK', options: ios_config.sdk_version.map(version => version.toString()) }),
+    ios_template: flags.string({description: 'iOS Template SDK', options: ios_config.template}),
+}
+
+/**
+ * iosConfigFromFlags
+ * @param flags flags passed to CLI
+ * @param configuration user configuration
+ * @summary It will set specific configuration for iOS using flags values
+ */
+export function iosConfigFromFlags(flags: any, configuration: Configuration) {
+    configuration.platform_configuration.platform = PlatformType.Android
+    configuration.platform_configuration.sdk_min_version = flags.sdk_min_version
+    configuration.platform_configuration.template = flags.template
+}
 
 /**
  * iosConfigForm
@@ -12,9 +37,6 @@ import { PlatformType } from '../configuration/enum'
  * @summary It will ask for iOS specific configuration using InquirerJS
  */
 export async function iosConfigForm(configuration: Configuration) {
-    // Retrieve iOS configuration
-    const ios_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.IOS)
-
     // Retrieve advised min sdk version index from the SDK version list
     const advised_min_version_index = ios_config
         .sdk_version
