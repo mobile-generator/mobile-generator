@@ -36,7 +36,7 @@ export function commonCheckFlags(args: any) {
  * @summary It will set specific configuration for Android using flags values
  */
 export function commonConfigFromArgsFlags(args: any, flags: any, configuration: Configuration) {
-    configuration.app_id = args.app_id
+    configuration.app_id = args.app_id + '.' + stringToPackageNameFormat(args.app_name)
     configuration.app_name = args.app_name
     configuration.internet_permission = flags.internet_permission
 }
