@@ -5,10 +5,11 @@ import { PlatformType } from '../main/configuration/enum'
 import { renderProject } from '../main/mustache/mustache'
 import { RequireConfiguration } from '../main/requirements/require-configuration'
 import { ANDROID_FLAGS } from '../main/user-input/user-input-android'
-import { COMMON_FLAGS, commonCheckFlags, commonConfigForm, commonConfigFromArgsFlags, overwriteDestDirForm } from '../main/user-input/user-input-common'
+import { COMMON_FLAGS, commonCheckFlags, commonConfigFromArgsFlags, overwriteDestDirForm } from '../main/user-input/user-input-common'
 import { IOS_FLAGS } from '../main/user-input/user-input-ios'
-import { specificPlatformConfigForm, specificPlatformConfigFromFlags } from '../main/user-input/user-input-specific'
+import { specificPlatformConfigFromFlags } from '../main/user-input/user-input-specific'
 import { checkDirectory, cleanDestDir } from '../main/utils/io-utils'
+import { isEmpty } from '../main/utils/string-utils'
 
 /**
  * This class represent the create command.
@@ -54,10 +55,8 @@ export default class Create extends Command {
     // Check if it's all good
     // N.B. : some requirements can be blocking others don't
     if (this.require_configuration.isAllGood()) {
-      if (args || flags) {
+      if (!isEmpty(args) || !isEmpty(flags)) {
         await this.staticRun(args, flags)
-      } else {
-        await this.interactiveRun()
       }
     }
   }
@@ -70,52 +69,17 @@ export default class Create extends Command {
       // Check if output directory already exist
       if (await checkDirectory(this.configuration)) {
         // Ask user if he wants to overwrite it
-        await overwriteDestDirForm(this.configuration).then(overwrite => {
-          if (overwrite) {
-            // If user wants to overwrite it, we delete all contents
-            cleanDestDir(this.configuration)
-          } else {
-            process.exit(0)
-          }
-        }, () => {
-          throw new Error('Error during overwrite dest dir')
-        })
+        if (flags.overwrite_dest) {
+          // If user wants to overwrite it, we delete all contents
+          cleanDestDir(this.configuration)
+        } else {
+          this.error(`Folder ${this.configuration.app_name} already exist, pass --${COMMON_FLAGS.overwrite_dest.name} flag to overwrite it`)
+          this.exit(1)
+        }
       }
       // Output results
       await renderProject(this.configuration)
-      process.exit(0)
+      this.exit(0)
     }
-  }
-
-  async interactiveRun() {
-    // Retrieve common config to all platform
-    await commonConfigForm(this.configuration, this.require_configuration.isFlutterAvailable).then(async () =>
-
-      // Retrieve config specific to chosen platform
-      specificPlatformConfigForm(this.configuration).then(async () => {
-        // Check if output directory already exist
-        if (await checkDirectory(this.configuration)) {
-          // Ask user if he wants to overwrite it
-          await overwriteDestDirForm(this.configuration).then(overwrite => {
-            if (overwrite) {
-              // If user wants to overwrite it, we delete all contents
-              cleanDestDir(this.configuration)
-            } else {
-              process.exit(0)
-            }
-          }, () => {
-            throw new Error('Error during overwrite dest dir')
-          })
-        }
-        // Output results
-        await renderProject(this.configuration)
-      },
-        () => {
-          throw new Error('Error during specific config')
-        })
-      , () => {
-        throw new Error('Error during common config')
-      })
-    process.exit(0)
   }
 }
