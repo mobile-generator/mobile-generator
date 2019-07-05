@@ -53,6 +53,9 @@ export class SdkVersion implements ISdkVersion {
      * @summary Returns class information
      */
     toString() {
+        if (this.version_minor === 0) {
+            return `${this.version_major}`
+        }
         return this.version_major + '.' + this.version_minor
     }
 }
