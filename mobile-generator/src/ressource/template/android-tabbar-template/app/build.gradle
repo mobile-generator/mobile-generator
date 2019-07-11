@@ -42,7 +42,7 @@ dependencies {
     implementation "com.github.kittinunf.fuel:fuel-gson:$fuel_version"
     {{/permission_internet}}
 
-    {{android_default_imports}}
+    {{{android_default_imports}}}
 
     /* Test imports */
     testImplementation 'junit:junit:4.12'

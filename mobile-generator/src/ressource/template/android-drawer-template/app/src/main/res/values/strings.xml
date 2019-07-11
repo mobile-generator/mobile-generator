@@ -15,6 +15,6 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
-    {{android_strings_content}}
+    {{{android_strings_content}}}
 
 </resources>

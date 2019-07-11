@@ -4,6 +4,6 @@
     <string name="title_layout_guide">Layout Guide</string>
     <string name="title_notifications">Notifications</string>
 
-    {{android_strings_content}}
+    {{{android_strings_content}}}
 
 </resources>
