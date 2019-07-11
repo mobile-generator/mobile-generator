@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">{{app_name}}</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="title_home">Home</string>
+    <string name="title_layout_guide">Layout Guide</string>
+    <string name="title_notifications">Notifications</string>
+
+    {{android_strings_content}}
+
 </resources>
