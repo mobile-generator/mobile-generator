@@ -1,5 +1,5 @@
 import { readdir, stat } from 'fs'
-import { ensureDirSync, mkdirSync, readFileSync, writeFileSync } from 'fs-extra'
+import { ensureDirSync, readFileSync, writeFileSync } from 'fs-extra'
 import * as Mustache from 'mustache'
 import * as path from 'path'
 
@@ -67,7 +67,7 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
                 } else if (stat.isDirectory()) {
                     // Render directory name
                     let renderedDest = Mustache.render(destPath, config)
-                    mkdirSync(renderedDest)
+                    ensureDirSync(renderedDest)
                     // Check if we need to create package name's folder tree
                     renderedDest = buildAppIdTreeIfNecessary(renderedDest, config.app_id)
                     // Render directory contents
@@ -109,7 +109,7 @@ function buildAppIdTreeIfNecessary(directory: string, package_name: string) {
      * `.../src/test/java/`
      */
 
-    // we check if currend directory is java
+    // we check if current directory is java
     if (directory.endsWith('java')) {
         directory += '/' + package_name.replace(/\./g, '/')
         ensureDirSync(directory)
