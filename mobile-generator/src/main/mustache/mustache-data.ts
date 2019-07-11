@@ -1,4 +1,7 @@
+import { readFileSync } from 'fs-extra'
+
 import { Configuration } from '../configuration/configuration'
+import { PlatformType } from '../configuration/enum'
 
 /**
  * Translate user configuration data to data
@@ -6,14 +9,23 @@ import { Configuration } from '../configuration/configuration'
  */
 export class MustacheData {
     static fromConfiguration(config: Configuration) {
-        return new this(
+        const configuration = new this(
             config.app_name,
             config.app_id,
             config.platform_configuration.template,
             config.platform_configuration.sdk_min_version.toString(),
             config.platform_configuration.sdk_target_version.toString(),
             config.internet_permission ? 'true' : 'false'
-            )
+        )
+
+        switch (config.platform_configuration.platform) {
+            case PlatformType.Android:
+                configuration.android_strings_content = readFileSync(__dirname + '/../../ressource/component/android-strings-content.txt').toString()
+                configuration.android_default_imports = readFileSync(__dirname + '/../../ressource/component/android-default-imports.txt').toString()
+                configuration.android_default_colors = readFileSync(__dirname + '/../../ressource/component/android-default-colors.txt').toString()
+        }
+
+        return configuration
     }
 
     app_name: string
@@ -22,6 +34,10 @@ export class MustacheData {
     min_version: string
     target_version: string
     internet_permission: string
+
+    android_strings_content: string | undefined
+    android_default_imports: string | undefined
+    android_default_colors: string | undefined
 
     constructor(
         app_name: string,

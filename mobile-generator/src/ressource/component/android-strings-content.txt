@@ -1,0 +1,19 @@
+    /*********************************
+    **********              **********
+    **** mGen generated resources ****
+    *********               **********
+    **********************************/
+
+
+    <string name="welcomeMessage">Welcome to your generated Android Application Project 🚀</string>
+    <string name="appIdPlaceholder">ApplicationId</string>
+    <string name="appId">ApplicationId: %s</string>
+
+    <string name="applicationVersionPlaceholder">Application Version</string>
+    <string name="applicationVersion">Application Version: %s(%d)</string>
+
+    <string name="templatePlaceholder">Template</string>
+    <string name="template">Template: {{template}}</string>
+
+    <string name="nightModePlaceholder">Night mode:</string>
+    <string name="show_layout_guide">Show Layout Guide</string>
