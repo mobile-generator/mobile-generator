@@ -1,5 +1,7 @@
 import { Command, flags } from '@oclif/command'
 
+//import { blueprintConfigForm } from '../main/user-input/user-input-blueprint'
+
 /**
  * This class represent the create command.
  * This command is available through the CLI
@@ -22,13 +24,23 @@ export default class Blueprint extends Command {
 
   // Args needed
   static args = [
-    { name: 'operation', description: 'Add or remove a blueprint', options: ['add', 'remove'], required: true },
-    { name: 'path', description: 'path to the blueprint', required: true },
+    { name: 'operation', description: 'Add or remove a blueprint', options: ['add', 'remove'], /* required: true */ },
+    { name: 'path', description: 'path to the blueprint', /* required: true */ },
   ]
 
   async run() {
     const { args, flags } = this.parse(Blueprint)
-
+/* 
+    if (args.operation && args.path) {
+      this.log(args)
+    } else {
+      await blueprintConfigForm().then(() => {
+        this.exit(0)
+      }).catch(err => {
+        this.log(err)
+        this.exit(1)
+      }) */
+    }
   }
 
 }
