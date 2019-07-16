@@ -26,7 +26,9 @@ describe('SdkVersion', function () {
 
     describe('toString()', function () {
         it('display SdkVersion', function () {
-            expect(sdk_0.toString()).to.be.string('0.0')
+            expect(sdk_0.toString()).to.be.string('0')
+            expect(sdk_1.toString()).to.be.string('1.1')
+
         })
     })
 })

@@ -26,6 +26,7 @@ export class RequireConfiguration {
         } else {
             this._isFlutterAvailable = true
         }
+        return
     }
 
     /**

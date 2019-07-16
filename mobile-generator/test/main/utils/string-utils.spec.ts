@@ -21,7 +21,7 @@ describe('MustacheData', function () {
             expect(validatePackageName('com.mycompany.my_app')).to.equal(true)
             expect(validatePackageName('com.mycompany.my_package.my_app')).to.equal(true)
             expect(validatePackageName('com.my_app')).to.equal(true)
-            expect(validatePackageName('com.mycompany.my-App')).to.equal(false)
+            expect(validatePackageName('com.mycompany.my-App')).to.be.not.equal(true)
 
         })
     })

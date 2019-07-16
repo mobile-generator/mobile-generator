@@ -37,4 +37,12 @@ describe('Configuration', function () {
             expect(configuration_ios.getTemplateDirName()).to.contain('ios-single-view-template')
         })
     })
+
+    describe('getGroupName()', function () {
+        it('display config', function () {
+            expect(configuration.getGroupName()).to.be.string('com.mycompany')
+        })
+    })
+
+    
 })
