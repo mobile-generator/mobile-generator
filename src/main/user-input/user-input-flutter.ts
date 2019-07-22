@@ -6,6 +6,7 @@ import { Configuration } from '../configuration/configuration'
  * @param configuration user configuration
  * @summary It will set specific configuration for Flutter using flags values
  */
+// tslint:disable-next-line: no-unused
 export function flutterConfigFromFlags(flags: any, configuration: Configuration) {
     // For now Flutter doesn't require any flags
 }
