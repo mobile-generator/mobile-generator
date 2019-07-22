@@ -16,9 +16,33 @@ If you want more in-depth information about go-flutter, read the [wiki](https://
 
 ## Supported platform
 
-* [x] Android
-* [x] iOS
-* [x] flutter
+### Android
+
+[x] Instant Apps Support
+[x] Usage of androidx.* artifacts
+[x] Android API Support from 21 to 29 (up to 85% of Android Devices Supported)
+[x] Android Material Theme support (Day/Night)
+[x] Easy integration with Materiel UI Color Tool https://material.io/tools/color
+[x] Simple & Complex Navigation pattern (Drawer Navigation, Tabbed Navigation, Single View, … more to come)
+[x] Check your color theme with the provided StyleGuide view presenting different native Android components
+[x] StyleGuide view supports Day/Light rendering
+[x] Smart Permission Support
+[x] Smart Import Support According to your answers
+
+### iOS
+
+[x]  Simple & Complex Navigation pattern (Tabbed Navigation, Single View, … more to come)
+[x] iOS 10.3 to 12.2(latest) Version Support
+[x] Test & UITest Target Support
+[ ] Smart Import Support According to your answers
+[ ] Dark/Light Color Support (coming with iOS 13 release)
+[ ] StyleGuide Support (coming with Dark/Light Color Support)
+
+### Flutter
+
+[ ] StyleGuide Support (coming with Dark/Light Color Support)
+[ ] iOS language (for now it's swift)
+[ ] android language (for now it's kotlin)
 
 ## Supported features
 
