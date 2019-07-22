@@ -11,7 +11,7 @@ describe('Configuration', function () {
 
     configuration_android.platform_configuration.platform = PlatformType.Android
     configuration_flutter.platform_configuration.platform = PlatformType.Flutter
-    configuration_ios.platform_configuration.platform = PlatformType.IOS
+    configuration_ios.platform_configuration.platform = PlatformType.iOS
 
     configuration.platform_configuration.template = TemplateType.Drawer
     configuration_android.platform_configuration.template = TemplateType.Tabbar

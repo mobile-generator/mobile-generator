@@ -8,7 +8,7 @@ import { MustacheData } from '../../../src/main/mustache/mustache-data'
 
 describe('MustacheData', function () {
     const configuration = new Configuration()
-    const iosConf = ConstantPlatformConfiguration.fromPlatformType(PlatformType.IOS)
+    const iosConf = ConstantPlatformConfiguration.fromPlatformType(PlatformType.iOS)
 
     configuration.app_name = 'test-App'
     configuration.app_id = 'com.testcompany.test_app'

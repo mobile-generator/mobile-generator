@@ -14,6 +14,6 @@ export enum TemplateType {
  */
 export enum PlatformType {
     Android = 'Android',
-    IOS = 'iOS',
+    iOS = 'iOS',
     Flutter = 'Flutter',
 }

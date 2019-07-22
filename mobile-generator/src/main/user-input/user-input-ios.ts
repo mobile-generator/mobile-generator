@@ -6,7 +6,7 @@ import { ConstantPlatformConfiguration } from '../configuration/constant-platfor
 import { PlatformType } from '../configuration/enum'
 
 // Retrieve iOS configuration
-const ios_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.IOS)
+const ios_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.iOS)
 
 /**
  * IOS_FLAGS

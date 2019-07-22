@@ -17,7 +17,7 @@ export function specificPlatformConfigForm(config: Configuration) {
     switch (config.platform_configuration.platform) {
         case PlatformType.Android: return androidConfigForm(config)
         case PlatformType.Flutter: return flutterConfigForm()
-        case PlatformType.IOS: return iosConfigForm(config)
+        case PlatformType.iOS: return iosConfigForm(config)
     }
 }
 
@@ -31,6 +31,6 @@ export function specificPlatformConfigFromFlags(str: string, flags: any, configu
     switch (str) {
         case PlatformType.Android: return androidConfigFromFlags(flags, configuration)
         case PlatformType.Flutter: return flutterConfigFromFlags(flags, configuration)
-        case PlatformType.IOS: return iosConfigFromFlags(flags, configuration)
+        case PlatformType.iOS: return iosConfigFromFlags(flags, configuration)
     }
 }

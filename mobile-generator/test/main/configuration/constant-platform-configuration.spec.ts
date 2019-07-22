@@ -17,11 +17,11 @@ describe('UserPlatformConfiguration', function () {
         it('instance with default value', function () {
             //expect(UserPlatformConfiguration.fromPlatformType(PlatformType.Android)).to.equal(ANDROID_CONF)
             //expect(UserPlatformConfiguration.fromPlatformType(PlatformType.Flutter)).to.equal(FLUTTER_CONF)
-            //expect(UserPlatformConfiguration.fromPlatformType(PlatformType.IOS)).to.equal(IOS_CONF)
+            //expect(UserPlatformConfiguration.fromPlatformType(PlatformType.iOS)).to.equal(IOS_CONF)
 
             expect(UserPlatformConfiguration.fromPlatformType(PlatformType.Android).platform).to.be.equal(PlatformType.Android)
             expect(UserPlatformConfiguration.fromPlatformType(PlatformType.Flutter).platform).to.be.equal(PlatformType.Flutter)
-            expect(UserPlatformConfiguration.fromPlatformType(PlatformType.IOS).platform).to.be.equal(PlatformType.IOS)
+            expect(UserPlatformConfiguration.fromPlatformType(PlatformType.iOS).platform).to.be.equal(PlatformType.iOS)
         })
     })
 

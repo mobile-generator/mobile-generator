@@ -177,6 +177,6 @@ function getQuestionGroupNameOrAppId(configuration: Configuration) {
     switch (configuration.platform_configuration.platform) {
         case(PlatformType.Android): return 'What is your group name'
         case(PlatformType.Flutter): return 'What\'s your group name/app id'
-        case(PlatformType.IOS): return 'What\'s your app id'
+        case(PlatformType.iOS): return 'What\'s your app id'
     }
 }

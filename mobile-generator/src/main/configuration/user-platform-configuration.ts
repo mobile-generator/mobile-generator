@@ -36,7 +36,7 @@ export class UserPlatformConfiguration implements IUserPlatformConfiguration {
         switch (platform) {
             case PlatformType.Android:
                 return this.fromJSON(ANDROID_CONF)
-            case PlatformType.IOS:
+            case PlatformType.iOS:
                 return this.fromJSON(IOS_CONF)
             case PlatformType.Flutter:
                 return this.fromJSON(FLUTTER_CONF)
