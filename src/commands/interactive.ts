@@ -5,6 +5,7 @@ import { renderProject } from '../main/mustache/mustache'
 import { RequireConfiguration } from '../main/requirements/require-configuration'
 import { commonConfigForm, overwriteDestDirForm } from '../main/user-input/user-input-common'
 import { specificPlatformConfigForm } from '../main/user-input/user-input-specific'
+import { ERROR_ALREADY_EXIST, NO_ERROR } from '../main/utils/constants'
 import { checkDirectory, cleanDestDir } from '../main/utils/io-utils'
 
 /**
@@ -58,7 +59,7 @@ export default class Interactive extends Command {
               // If user wants to overwrite it, we delete all contents
               cleanDestDir(this.configuration)
             } else {
-              this.exit(1)
+              this.exit(ERROR_ALREADY_EXIST)
             }
           }, () => {
             throw new Error('Error during overwrite dest dir')
@@ -73,6 +74,6 @@ export default class Interactive extends Command {
       , () => {
         throw new Error('Error during common config')
       })
-    this.exit(0)
+    this.exit(NO_ERROR)
   }
 }

@@ -8,6 +8,7 @@ import { ANDROID_FLAGS } from '../main/user-input/user-input-android'
 import { COMMON_FLAGS, commonCheckFlags, commonConfigFromArgsFlags } from '../main/user-input/user-input-common'
 import { IOS_FLAGS } from '../main/user-input/user-input-ios'
 import { specificPlatformConfigFromFlags } from '../main/user-input/user-input-specific'
+import { ERROR_ALREADY_EXIST, NO_ERROR } from '../main/utils/constants'
 import { checkDirectory, cleanDestDir } from '../main/utils/io-utils'
 import { isEmpty } from '../main/utils/string-utils'
 
@@ -74,12 +75,12 @@ export default class Create extends Command {
           cleanDestDir(this.configuration)
         } else {
           this.error(`Folder ${this.configuration.app_name} already exist, pass --${COMMON_FLAGS.overwrite_dest.name} flag to overwrite it`)
-          this.exit(1)
+          this.exit(ERROR_ALREADY_EXIST)
         }
       }
       // Output results
       await renderProject(this.configuration)
-      this.exit(0)
+      this.exit(NO_ERROR)
     }
   }
 }

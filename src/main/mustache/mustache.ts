@@ -5,6 +5,7 @@ import * as path from 'path'
 
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
+import { ERROR_PARSING_TEMPLATE } from '../utils/constants'
 import { createFlutterProject } from '../utils/flutter-utils'
 import { createTempDir, moveTempDirToDest } from '../utils/io-utils'
 import { cleanString } from '../utils/string-utils'
@@ -33,7 +34,7 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
     readdir(src, function (err, files): void {
         if (err) {
             // Error whilst parsing folder
-            process.exit(1)
+            process.exit(ERROR_PARSING_TEMPLATE)
         }
 
         // Loop through all the directories / files inside the current directory
