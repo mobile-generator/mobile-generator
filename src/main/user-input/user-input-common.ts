@@ -18,8 +18,8 @@ const IOS_APP_ID_QUESTION = 'What\'s your app id'
  * Flags for common configuration
  */
 export const COMMON_FLAGS = {
-    internet_permission: flags.boolean({description: 'Wether or not needs internet access'}),
-    overwrite_dest: flags.boolean({description: 'Wether or not overwrite destination folder'}),
+    internet_permission: flags.boolean({ description: 'Wether or not needs internet access' }),
+    overwrite_dest: flags.boolean({ description: 'Wether or not overwrite destination folder' }),
 }
 
 /**
@@ -55,96 +55,12 @@ export function commonConfigFromArgsFlags(args: any, flags: any, configuration: 
  */
 export async function commonConfigForm(configuration: Configuration, isFlutterAvailable: boolean): Promise<boolean> {
     // Prompt for platform target
-
-    // Retrieve available platform
-    // We map the retrieved platform to be compliant with InquirerJS format
-    const platform_list = Object.keys(PlatformType).map(key => ({ name: key, value: (PlatformType as any)[key] }))
-
-    // If Flutter is not installed we remove it from the list
-    if (!isFlutterAvailable) {
-        const flutterIndex = platform_list.findIndex(obj => obj.value === PlatformType.Flutter)
-        platform_list.splice(flutterIndex, 1)
-    }
-
-    let platform: any = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'value',
-            message: 'Select a target platform',
-            choices: platform_list,
-        },
-    ])
-
-    // set prompted platform value
-    configuration.platform_configuration = UserPlatformConfiguration.fromPlatformType(platform.value)
+    configuration.platform_configuration = await platformConfigurationQuestion(isFlutterAvailable)
 
     // Prompt for app name
-    let app_name: any = await inquirer.prompt([
-        {
-            type: 'input',
-            name: 'value',
-            message: "What's your app name",
-            validate(name): boolean {
-                name = stripAnsi.default(name)
-                return name !== ''
-            },
-            default(): string {
-                return chalkPipe('orange')(DEFAULT_PACKAGE_NAME)
-            },
-            transformer(str): string {
-                return chalkPipe('orange')(str)
-            },
-            filter(str): string {
-                return stripAnsi.default(str)
-            }
-        },
-    ])
+    configuration.app_name = await appNameQuestion()
 
-    // set prompted application name value
-    configuration.app_name = app_name.value
-
-    let commonResponses: any = await inquirer.prompt([
-        // Prompt for app id
-        {
-            type: 'input',
-            name: 'app_id',
-            message: getQuestionGroupNameOrAppId(configuration),
-            validate: validatePackageName,
-            transformer(input): string {
-                if (input !== '') {
-                    let tmp = input.split('.')
-                    if (tmp.length < 3) {
-                        return `${chalkPipe('yellow')(input)}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
-                    } else {
-                        return`${chalkPipe('yellow')(tmp.slice(0, -1).join('.'))}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
-                    }
-                }
-                return ''
-            },
-            default(): string {
-                return `${chalkPipe('yellow')(DEFAULT_GROUP_NAME)}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
-            },
-            filter(str): string {
-                str = stripAnsi.default(str)
-
-                if (!str.endsWith(stringToPackageNameFormat(configuration.app_name))) {
-                    str = str + '.' + stringToPackageNameFormat(configuration.app_name)
-                }
-                return str
-            }
-        },
-        // Prompt for internet permission
-        {
-            type: 'confirm',
-            name: 'internet_permission',
-            message: 'Will your application need internet access ?',
-        }
-    ])
-
-    // set prompted application ID value
-    configuration.app_id = commonResponses.app_id
-    // set prompted internet permission value
-    configuration.internet_permission = commonResponses.internet_permission
+    await commonQuestion(configuration)
 
     return true
 }
@@ -180,8 +96,103 @@ export async function overwriteDestDirForm(configuration: Configuration): Promis
  */
 function getQuestionGroupNameOrAppId(configuration: Configuration): string {
     switch (configuration.platform_configuration.platform) {
-        case(PlatformType.Android): return ANDROID_APP_ID_QUESTION
-        case(PlatformType.Flutter): return FLUTTER_APP_ID_QUESTION
-        case(PlatformType.iOS): return IOS_APP_ID_QUESTION
+        case (PlatformType.Android): return ANDROID_APP_ID_QUESTION
+        case (PlatformType.Flutter): return FLUTTER_APP_ID_QUESTION
+        case (PlatformType.iOS): return IOS_APP_ID_QUESTION
     }
+}
+
+async function platformConfigurationQuestion(isFlutterAvailable: boolean): Promise<UserPlatformConfiguration> {
+    // Retrieve available platform
+    // We map the retrieved platform to be compliant with InquirerJS format
+    const platform_list = Object.keys(PlatformType).map(key => ({ name: key, value: (PlatformType as any)[key] }))
+
+    // If Flutter is not installed we remove it from the list
+    if (!isFlutterAvailable) {
+        const flutterIndex = platform_list.findIndex(obj => obj.value === PlatformType.Flutter)
+        platform_list.splice(flutterIndex, 1)
+    }
+
+    let platform: any = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'value',
+            message: 'Select a target platform',
+            choices: platform_list,
+        },
+    ])
+
+    return UserPlatformConfiguration.fromPlatformType(platform.value)
+}
+
+async function appNameQuestion(): Promise<string> {
+    let app_name: any = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'value',
+            message: "What's your app name",
+            validate(name): boolean {
+                name = stripAnsi.default(name)
+                return name !== ''
+            },
+            default(): string {
+                return chalkPipe('orange')(DEFAULT_PACKAGE_NAME)
+            },
+            transformer(str): string {
+                return chalkPipe('orange')(str)
+            },
+            filter(str): string {
+                return stripAnsi.default(str)
+            }
+        },
+    ])
+
+    return app_name.value
+}
+
+async function commonQuestion(configuration: Configuration): Promise<boolean> {
+    let commonResponses: any = await inquirer.prompt([
+        // Prompt for app id
+        {
+            type: 'input',
+            name: 'app_id',
+            message: getQuestionGroupNameOrAppId(configuration),
+            validate: validatePackageName,
+            transformer(input): string {
+                if (input !== '') {
+                    let tmp = input.split('.')
+                    if (tmp.length < 3) {
+                        return `${chalkPipe('yellow')(input)}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
+                    } else {
+                        return `${chalkPipe('yellow')(tmp.slice(0, -1).join('.'))}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
+                    }
+                }
+                return ''
+            },
+            default(): string {
+                return `${chalkPipe('yellow')(DEFAULT_GROUP_NAME)}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
+            },
+            filter(str): string {
+                str = stripAnsi.default(str)
+
+                if (!str.endsWith(stringToPackageNameFormat(configuration.app_name))) {
+                    str = str + '.' + stringToPackageNameFormat(configuration.app_name)
+                }
+                return str
+            }
+        },
+        // Prompt for internet permission
+        {
+            type: 'confirm',
+            name: 'internet_permission',
+            message: 'Will your application need internet access ?',
+        }
+    ])
+
+    // set prompted application ID value
+    configuration.app_id = commonResponses.app_id
+    // set prompted internet permission value
+    configuration.internet_permission = commonResponses.internet_permission
+
+    return true
 }
