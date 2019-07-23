@@ -1,6 +1,6 @@
 import { expect, test } from '@oclif/test'
 
-describe('Create commands', function () {
+describe('Create commands', function (): void {
     test
     .stdout()
     .command(['create', '--help'])

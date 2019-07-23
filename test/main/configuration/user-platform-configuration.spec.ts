@@ -10,11 +10,11 @@ import { expect } from '@oclif/test'
 import { ConstantPlatformConfiguration } from '../../../src/main/configuration/constant-platform-configuration'
 import { PlatformType } from '../../../src/main/configuration/enum'
 
-describe('ConstantPlatformConfiguration', function () {
+describe('ConstantPlatformConfiguration', function (): void {
     let configuration = ConstantPlatformConfiguration.fromPlatformType(PlatformType.Android)
 
-    describe('fromPlatformType', function () {
-        it('instance with default value', function () {
+    describe('fromPlatformType', function (): void {
+        it('instance with default value', function (): void {
             // We should test it like this
             //expect(ConstantPlatformConfiguration.fromPlatformType(PlatformType.Android)).to.equal(ANDROID_CONF)
             //expect(ConstantPlatformConfiguration.fromPlatformType(PlatformType.Flutter)).to.equal(FLUTTER_CONF)
@@ -26,8 +26,8 @@ describe('ConstantPlatformConfiguration', function () {
         })
     })
 
-    describe('new', function () {
-        it('instance with default value', function () {
+    describe('new', function (): void {
+        it('instance with default value', function (): void {
             expect(configuration.platform).to.equal(PlatformType.Android)
 
         })

@@ -2,11 +2,11 @@ import { expect } from '@oclif/test'
 import { readFileSync } from 'fs-extra'
 
 import { Configuration } from '../../../src/main/configuration/configuration'
-import { ConstantPlatformConfiguration } from '../../../src/main/configuration/constant-platform-configuration';
+import { ConstantPlatformConfiguration } from '../../../src/main/configuration/constant-platform-configuration'
 import { PlatformType } from '../../../src/main/configuration/enum'
 import { MustacheData } from '../../../src/main/mustache/mustache-data'
 
-describe('MustacheData', function () {
+describe('MustacheData', function (): void {
     const configuration = new Configuration()
     const iosConf = ConstantPlatformConfiguration.fromPlatformType(PlatformType.iOS)
 
@@ -31,8 +31,8 @@ describe('MustacheData', function () {
 
     const mustacheData_2 = MustacheData.fromConfiguration(configuration_2)
 
-    describe('fromConfiguration ios', function () {
-        it('instance with default value', function () {
+    describe('fromConfiguration ios', function (): void {
+        it('instance with default value', function (): void {
             expect(mustacheData.app_name).to.be.string('test-App')
             expect(mustacheData.app_id).to.be.string('com.testcompany.test_app')
             expect(mustacheData.internet_permission).to.be.string('false')
@@ -41,8 +41,8 @@ describe('MustacheData', function () {
         })
     })
 
-    describe('fromConfiguration android', function () {
-        it('instance with default value', function () {
+    describe('fromConfiguration android', function (): void {
+        it('instance with default value', function (): void {
             expect(mustacheData_2.internet_permission).to.be.string('true')
             expect(mustacheData_2.android_strings_content).to.be.string(readFileSync(__dirname + '/../../../src/ressource/component/android-strings-content.txt').toString())
             expect(mustacheData_2.android_default_imports).to.be.string(readFileSync(__dirname + '/../../../src/ressource/component/android-default-imports.txt').toString())
