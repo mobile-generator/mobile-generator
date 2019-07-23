@@ -4,6 +4,7 @@
     "object-curly-spacing": [2, "always"],
     "ter-indent": false,
     "indent": false,
-    "no-console": false
+    "no-console": false,
+    "no-inferrable-types": true
   }
 }

@@ -45,7 +45,7 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
             stat(srcPath, function (error, stat) {
                 if (error) {
                     // Error whilst retrieving information
-                    return
+                    return 'Can not retrieve information'
                 }
 
                 if (stat.isFile()) {

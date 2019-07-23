@@ -15,6 +15,7 @@ describe('UserPlatformConfiguration', function () {
 
     describe('fromPlatformType', function () {
         it('instance with default value', function () {
+            // We should test it like this
             //expect(UserPlatformConfiguration.fromPlatformType(PlatformType.Android)).to.equal(ANDROID_CONF)
             //expect(UserPlatformConfiguration.fromPlatformType(PlatformType.Flutter)).to.equal(FLUTTER_CONF)
             //expect(UserPlatformConfiguration.fromPlatformType(PlatformType.iOS)).to.equal(IOS_CONF)
