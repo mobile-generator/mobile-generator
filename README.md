@@ -14,9 +14,9 @@ The best way to get started is to install our [npm package](https://www.npmjs.co
 
 `$ npm i mobile-generator`
 
-Read the [CLI usage](https://github.com/mobile-generator/mobile-generator/mobile-generator) to run CLI or start with [one of our example](https://github.com/mobile-generator/examples).
+Read the [CLI usage](##Usage) to run CLI or start with [one of our example](https://github.com/mobile-generator/examples).
 
-If you want more in-depth information about go-flutter, read the [wiki](https://github.com/mobile-generator/mobile-generator/wiki).
+If you want more in-depth information about mobile generator, read the [wiki](https://github.com/mobile-generator/mobile-generator/wiki).
 
 ## Supported platform
 
