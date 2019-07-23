@@ -5,7 +5,7 @@ import { renderProject } from '../main/mustache/mustache'
 import { RequireConfiguration } from '../main/requirements/require-configuration'
 import { commonConfigForm, overwriteDestDirForm } from '../main/user-input/user-input-common'
 import { specificPlatformConfigForm } from '../main/user-input/user-input-specific'
-import { ERROR_ALREADY_EXIST, NO_ERROR } from '../main/utils/constants'
+import { ERROR_ALREADY_EXIST, ERROR_COMMON_CONFIG, ERROR_SPECIFIC_CONFIG, NO_ERROR  } from '../main/utils/constants'
 import { checkDirectory, cleanDestDir } from '../main/utils/io-utils'
 
 /**
@@ -45,34 +45,40 @@ export default class Interactive extends Command {
       await this.interactiveRun()
     }
   }
+
+  async interactiveOverwriteDest(): Promise<boolean> {
+    // Check if output directory already exist
+    if (await checkDirectory(this.configuration)) {
+      // Ask user if he wants to overwrite it
+      await overwriteDestDirForm(this.configuration).then(overwrite => {
+        if (overwrite) {
+          // If user wants to overwrite it, we delete all contents
+          cleanDestDir(this.configuration)
+        } else {
+          this.exit(ERROR_ALREADY_EXIST)
+        }
+      }, () => {
+        throw new Error('Error during overwrite dest dir')
+      })
+    }
+    return true
+  }
+
   async interactiveRun(): Promise<void> {
     // Retrieve common config to all platform
     await commonConfigForm(this.configuration, this.require_configuration.isFlutterAvailable).then(async () =>
 
       // Retrieve config specific to chosen platform
       specificPlatformConfigForm(this.configuration).then(async () => {
-        // Check if output directory already exist
-        if (await checkDirectory(this.configuration)) {
-          // Ask user if he wants to overwrite it
-          await overwriteDestDirForm(this.configuration).then(overwrite => {
-            if (overwrite) {
-              // If user wants to overwrite it, we delete all contents
-              cleanDestDir(this.configuration)
-            } else {
-              this.exit(ERROR_ALREADY_EXIST)
-            }
-          }, () => {
-            throw new Error('Error during overwrite dest dir')
-          })
-        }
+        await this.interactiveOverwriteDest()
         // Output results
         await renderProject(this.configuration)
       },
         () => {
-          throw new Error('Error during specific config')
+          this.exit(ERROR_SPECIFIC_CONFIG)
         })
       , () => {
-        throw new Error('Error during common config')
+        this.exit(ERROR_COMMON_CONFIG)
       })
     this.exit(NO_ERROR)
   }
