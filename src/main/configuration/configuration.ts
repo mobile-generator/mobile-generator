@@ -1,5 +1,5 @@
 import * as ANDROID_CONF from '../../ressource/config/android.json'
-import { DEFAULT_APP_ID, DEFAULT_APP_NAME } from '../utils/constants.js'
+import { DEFAULT_APP_ID, DEFAULT_APP_NAME } from '../utils/constants'
 
 import { UserPlatformConfiguration } from './user-platform-configuration'
 

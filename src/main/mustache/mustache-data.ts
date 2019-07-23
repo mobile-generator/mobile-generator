@@ -25,8 +25,8 @@ export class MustacheData {
         switch (config.platform_configuration.platform) {
             case PlatformType.Android:
                 configuration.android_strings_content = readFileSync(__dirname + PATH_TO_ANDROID_STRING_CONTENTS).toString()
-                configuration.android_default_imports = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_COLORS).toString()
-                configuration.android_default_colors = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_IMPORTS).toString()
+                configuration.android_default_imports = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_IMPORTS).toString()
+                configuration.android_default_colors = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_COLORS).toString()
         }
 
         return configuration
