@@ -6,8 +6,12 @@ import * as stripAnsi from 'strip-ansi'
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
 import { UserPlatformConfiguration } from '../configuration/user-platform-configuration'
-import { DEFAULT_PACKAGE_NAME, DEFAULT_GROUP_NAME } from '../utils/constants'
+import { DEFAULT_GROUP_NAME, DEFAULT_PACKAGE_NAME } from '../utils/constants'
 import { stringToPackageNameFormat, validatePackageName } from '../utils/string-utils'
+
+const ANDROID_APP_ID_QUESTION = 'What is your group name'
+const FLUTTER_APP_ID_QUESTION = 'What\'s your group name/app id'
+const IOS_APP_ID_QUESTION = 'What\'s your app id'
 
 /**
  * COMMON_FLAGS
@@ -176,8 +180,8 @@ export async function overwriteDestDirForm(configuration: Configuration): Promis
  */
 function getQuestionGroupNameOrAppId(configuration: Configuration): string {
     switch (configuration.platform_configuration.platform) {
-        case(PlatformType.Android): return 'What is your group name'
-        case(PlatformType.Flutter): return 'What\'s your group name/app id'
-        case(PlatformType.iOS): return 'What\'s your app id'
+        case(PlatformType.Android): return ANDROID_APP_ID_QUESTION
+        case(PlatformType.Flutter): return FLUTTER_APP_ID_QUESTION
+        case(PlatformType.iOS): return IOS_APP_ID_QUESTION
     }
 }
