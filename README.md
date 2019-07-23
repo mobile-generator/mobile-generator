@@ -46,7 +46,7 @@ If you want more in-depth information about mobile generator, read the [wiki](ht
 
 * [ ] StyleGuide Support (coming with Dark/Light Color Support)  
 * [ ] iOS language (for now it's swift)  
-* [ ] android language (for now it's kotlin)  
+* [ ] Android language (for now it's kotlin)  
 
 
 Are you missing a feature? [Open an issue!](https://github.com/mobile-generator/mobile-generator/issues/new)
