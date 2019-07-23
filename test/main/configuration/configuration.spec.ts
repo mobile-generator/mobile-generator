@@ -2,6 +2,7 @@ import { expect } from '@oclif/test'
 
 import { Configuration } from '../../../src/main/configuration/configuration'
 import { PlatformType, TemplateType } from '../../../src/main/configuration/enum'
+import { DEFAULT_APP_ID, DEFAULT_APP_NAME, DEFAULT_GROUP_NAME } from '../../../src/main/utils/constants'
 
 describe('Configuration', function () {
     const configuration = new Configuration()
@@ -19,8 +20,8 @@ describe('Configuration', function () {
 
     describe('new', function () {
         it('instance with default value', function () {
-            expect(configuration.app_name).to.be.string('my-App')
-            expect(configuration.app_id).to.be.string('com.mycompany.my_app')
+            expect(configuration.app_name).to.be.string(DEFAULT_APP_NAME)
+            expect(configuration.app_id).to.be.string(DEFAULT_APP_ID)
         })
     })
 

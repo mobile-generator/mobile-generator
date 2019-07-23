@@ -6,6 +6,7 @@ import * as stripAnsi from 'strip-ansi'
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
 import { UserPlatformConfiguration } from '../configuration/user-platform-configuration'
+import { DEFAULT_PACKAGE_NAME, DEFAULT_GROUP_NAME } from '../utils/constants'
 import { stringToPackageNameFormat, validatePackageName } from '../utils/string-utils'
 
 /**
@@ -84,7 +85,7 @@ export async function commonConfigForm(configuration: Configuration, isFlutterAv
                 return name !== ''
             },
             default(): string {
-                return chalkPipe('orange')('my-app')
+                return chalkPipe('orange')(DEFAULT_PACKAGE_NAME)
             },
             transformer(str): string {
                 return chalkPipe('orange')(str)
@@ -117,7 +118,7 @@ export async function commonConfigForm(configuration: Configuration, isFlutterAv
                 return ''
             },
             default(): string {
-                return `${chalkPipe('yellow')('com.mycompany')}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
+                return `${chalkPipe('yellow')(DEFAULT_GROUP_NAME)}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
             },
             filter(str): string {
                 str = stripAnsi.default(str)

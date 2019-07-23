@@ -8,7 +8,7 @@ import { ANDROID_FLAGS } from '../main/user-input/user-input-android'
 import { COMMON_FLAGS, commonCheckFlags, commonConfigFromArgsFlags } from '../main/user-input/user-input-common'
 import { IOS_FLAGS } from '../main/user-input/user-input-ios'
 import { specificPlatformConfigFromFlags } from '../main/user-input/user-input-specific'
-import { ERROR_ALREADY_EXIST, NO_ERROR } from '../main/utils/constants'
+import { DEFAULT_APP_NAME, DEFAULT_GROUP_NAME, ERROR_ALREADY_EXIST, NO_ERROR } from '../main/utils/constants'
 import { checkDirectory, cleanDestDir } from '../main/utils/io-utils'
 import { isEmpty } from '../main/utils/string-utils'
 
@@ -22,9 +22,9 @@ export default class Create extends Command {
 
   // Usage example
   static examples = [
-    '$ mobile-generator create android my-app com.mycompany --android_min_sdk=21 --android_target_sdk=29 --android_template=drawer --internet_permission',
-    '$ mobile-generator create ios my-app com.mycompany --ios_min_sdk=21 --ios_template=drawer --internet_permission',
-    '$ mobile-generator create flutter my-app com.mycompany',
+    `$ mobile-generator create android ${DEFAULT_APP_NAME } ${DEFAULT_GROUP_NAME} --android_min_sdk=21 --android_target_sdk=29 --android_template=drawer --internet_permission`,
+    `$ mobile-generator create ios ${DEFAULT_APP_NAME } ${DEFAULT_GROUP_NAME} --ios_min_sdk=21 --ios_template=drawer --internet_permission`,
+    `$ mobile-generator create flutter ${DEFAULT_APP_NAME } ${DEFAULT_GROUP_NAME}`,
   ]
 
   // Flags available

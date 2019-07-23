@@ -1,6 +1,8 @@
 import sanitize from 'sanitize-filename'
 import * as stripAnsi from 'strip-ansi'
 
+import { INVALID_INPUT } from './constants'
+
 /**
  * isEmpty
  * @param obj any object
@@ -52,6 +54,6 @@ export function validatePackageName(str: string): string | boolean {
     if (res) {
         return true
     } else {
-        return 'Invalid input'
+        return INVALID_INPUT
     }
 }

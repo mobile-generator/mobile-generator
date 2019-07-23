@@ -6,6 +6,7 @@ import { lookpath } from 'lookpath'
 
 import { Configuration } from '../configuration/configuration'
 
+import { FLUTTER_CREATE_ERROR, FLUTTER_CREATE_SUCCESS, FLUTTER_ERROR } from './constants'
 import { Loader } from './loader'
 import { stringToPackageNameFormat } from './string-utils'
 
@@ -31,11 +32,11 @@ export async function createFlutterProject(configuration: Configuration, directo
         const command = `flutter create -i swift -a kotlin -t app --org ${configuration.getGroupName()} --project-name ${stringToPackageNameFormat(configuration.app_name)} ${directory}`
         const { stderr } = await exec(command)
         if (stderr) {
-            console.log(chalkPipe('red.bold')('Error when running following command: ' + command))
-            console.log(chalkPipe('red.bold')('Current error: ' + stderr))
+            console.log(chalkPipe('red.bold')(FLUTTER_CREATE_ERROR + command))
+            console.log(chalkPipe('red.bold')(FLUTTER_ERROR + stderr))
             reject(false)
         } else {
-            loader.stop(chalkPipe('green.bold')('✓ Installation done!\n'))
+            loader.stop(FLUTTER_CREATE_SUCCESS)
             resolve(true)
         }
     })

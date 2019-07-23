@@ -3,6 +3,10 @@ import { readFileSync } from 'fs-extra'
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
 
+const PATH_TO_ANDROID_STRING_CONTENTS = '/../../ressource/component/android-strings-content.txt'
+const PATH_TO_ANDROID_DEFAULT_COLORS = '/../../ressource/component/android-default-colors.txt'
+const PATH_TO_ANDROID_DEFAULT_IMPORTS = '/../../ressource/component/android-default-imports.txt'
+
 /**
  * Translate user configuration data to data
  * that Mustache can use.
@@ -20,9 +24,9 @@ export class MustacheData {
 
         switch (config.platform_configuration.platform) {
             case PlatformType.Android:
-                configuration.android_strings_content = readFileSync(__dirname + '/../../ressource/component/android-strings-content.txt').toString()
-                configuration.android_default_imports = readFileSync(__dirname + '/../../ressource/component/android-default-imports.txt').toString()
-                configuration.android_default_colors = readFileSync(__dirname + '/../../ressource/component/android-default-colors.txt').toString()
+                configuration.android_strings_content = readFileSync(__dirname + PATH_TO_ANDROID_STRING_CONTENTS).toString()
+                configuration.android_default_imports = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_COLORS).toString()
+                configuration.android_default_colors = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_IMPORTS).toString()
         }
 
         return configuration

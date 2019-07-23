@@ -1,4 +1,4 @@
-const chalkPipe = require('chalk-pipe')
+import { WARNING_FLUTTER_NOT_IN_PATH_MSG_1, WARNING_FLUTTER_NOT_IN_PATH_MSG_2 } from '../utils/constants'
 import { flutterIsInstalled } from '../utils/flutter-utils'
 
 /**
@@ -20,8 +20,8 @@ export class RequireConfiguration {
      */
     async checkRequirements(): Promise<boolean> {
         if (!await flutterIsInstalled()) {
-            console.log(chalkPipe('red.bold')('Mobile Generator didn\'t found flutter executable. Perhaps it isn\'t in your PATH?'))
-            console.log(chalkPipe('red.bold')('Otherwise, follow the installation guide at ') + chalkPipe('green')('https://flutter.dev/docs/get-started/install'))
+            console.log(WARNING_FLUTTER_NOT_IN_PATH_MSG_1)
+            console.log(WARNING_FLUTTER_NOT_IN_PATH_MSG_2)
             this._isFlutterAvailable = false
         } else {
             this._isFlutterAvailable = true

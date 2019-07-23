@@ -5,12 +5,14 @@ import * as path from 'path'
 
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
-import { ERROR_PARSING_TEMPLATE } from '../utils/constants'
+import { BLACKLIST_EXTENSION, ERROR_PARSING_TEMPLATE, GIT_IGNORE, NPM_IGNORE } from '../utils/constants'
 import { createFlutterProject } from '../utils/flutter-utils'
 import { createTempDir, moveTempDirToDest } from '../utils/io-utils'
 import { cleanString } from '../utils/string-utils'
 
 import { MustacheData } from './mustache-data'
+
+const PATH_TO_TEMPLATE = '/../../ressource/template/'
 
 /**
  * @method mustacheFile
@@ -50,8 +52,8 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
                     if (stat.isFile()) {
                         // NPM automatically renames .gitignore to .npmignore when pushing source files
                         // To avoid any issue with the template we force the renaming
-                        if (srcPath.endsWith('.npmignore')) {
-                            srcPath.replace('.npmignore', '.gitignore')
+                        if (srcPath.endsWith(NPM_IGNORE)) {
+                            srcPath.replace(NPM_IGNORE, GIT_IGNORE)
                         }
 
                         // We check if the file is blacklisted (see `checkFileExtension` doc)
@@ -87,8 +89,7 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
  */
 function checkFileExtension(file: string): boolean {
     let extension = path.extname(file).split('.', 2)[1]
-    // Black list
-    const BLACKLIST_EXTENSION = ['png', 'jpg', 'jpeg']
+
     if (BLACKLIST_EXTENSION.includes(extension)) {
         return false
     }
@@ -108,7 +109,7 @@ function buildAppIdTreeIfNecessary(directory: string, package_name: string): str
      * `.../src/test/java/`
      */
 
-    // we check if current directory is java
+    // We check if current directory is java
     if (directory.endsWith('java')) {
         directory += '/' + package_name.replace(/\./g, '/')
         ensureDirSync(directory)
@@ -131,7 +132,7 @@ export async function renderProject(config: Configuration): Promise<boolean> {
                 await createFlutterProject(config, tempPath).catch(() => reject(false))
             } else {
                 // Render project inside the temporary directory
-                mustacheDirectory(__dirname + '/../../ressource/template/' + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
+                mustacheDirectory(__dirname + PATH_TO_TEMPLATE + config.getTemplateDirName(), tempPath, MustacheData.fromConfiguration(config))
             }
 
             // Move project from temp dir to real dest dir

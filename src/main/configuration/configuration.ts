@@ -1,4 +1,5 @@
 import * as ANDROID_CONF from '../../ressource/config/android.json'
+import { DEFAULT_APP_ID, DEFAULT_APP_NAME } from '../utils/constants.js'
 
 import { UserPlatformConfiguration } from './user-platform-configuration'
 
@@ -7,18 +8,14 @@ import { UserPlatformConfiguration } from './user-platform-configuration'
  * It will be set throughout the questions
  */
 export class Configuration {
-    // Application name, example: my-app
     app_name: string
-    // Application id, example: com.mycompany.myapp
     app_id: string
-    // Configuration for chosen platform
     platform_configuration: UserPlatformConfiguration
-    // Wether or not give application access to internet
     internet_permission: boolean
 
     constructor() {
-        this.app_name = 'my-App'
-        this.app_id = 'com.mycompany.my_app'
+        this.app_name = DEFAULT_APP_NAME
+        this.app_id = DEFAULT_APP_ID
         this.platform_configuration = UserPlatformConfiguration.fromJSON(ANDROID_CONF)
         this.internet_permission = false
     }
