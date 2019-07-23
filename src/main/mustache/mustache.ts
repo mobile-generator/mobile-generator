@@ -90,12 +90,9 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
  * and avoid error with Mustache parser.
  */
 function checkFileExtension(file: string): boolean {
-    let extension = path.extname(file).split('.', 2)[1]
+    const extension = path.extname(file).split('.', 2)[1]
 
-    if (BLACKLIST_EXTENSION.includes(extension)) {
-        return false
-    }
-    return true
+    return !BLACKLIST_EXTENSION.includes(extension)
 }
 
 /**
