@@ -6,7 +6,9 @@
   "bin": {
     "mobile-generator": "./bin/run"
   },
-  "bugs": "https://fr.ippon.tech/",
+  "bugs": {
+    "url": "https://github.com/mobile-generator/mobile-generator/issues"
+  },
   "dependencies": {
     "@oclif/command": "^1.5.14",
     "@oclif/config": "^1.13.0",
@@ -49,7 +51,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://fr.ippon.tech/",
+  "homepage": "https://github.com/mobile-generator/mobile-generator#readme",
   "keywords": [
     "oclif"
   ],
@@ -62,7 +64,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "https://fr.ippon.tech/",
+  "repository": "github:mobile-generator/mobile-generator",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -p test -t stylish",
