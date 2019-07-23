@@ -39,9 +39,9 @@ export class MustacheData {
     target_version: string
     internet_permission: string
 
-    android_strings_content: string | undefined
-    android_default_imports: string | undefined
-    android_default_colors: string | undefined
+    android_strings_content?: string
+    android_default_imports?: string
+    android_default_colors?: string
 
     constructor(
         app_name: string,
