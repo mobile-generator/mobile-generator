@@ -13,7 +13,7 @@ import { iosConfigForm, iosConfigFromFlags } from './user-input-ios'
  * It will select the specific platform config form
  * according to the configuration
  */
-export function specificPlatformConfigForm(config: Configuration) {
+export function specificPlatformConfigForm(config: Configuration): Promise<boolean> {
     switch (config.platform_configuration.platform) {
         case PlatformType.Android: return androidConfigForm(config)
         case PlatformType.Flutter: return flutterConfigForm()
@@ -27,7 +27,7 @@ export function specificPlatformConfigForm(config: Configuration) {
  * @summary
  * Set configuration settings for chosen platform
  */
-export function specificPlatformConfigFromFlags(str: string, flags: any, configuration: Configuration) {
+export function specificPlatformConfigFromFlags(str: string, flags: any, configuration: Configuration): void {
     switch (str) {
         case PlatformType.Android: return androidConfigFromFlags(flags, configuration)
         case PlatformType.Flutter: return flutterConfigFromFlags(flags, configuration)

@@ -28,7 +28,7 @@ export class Configuration {
      * @returns `string`: directory name of the corresponding template
      * @summary return template directory corresponding to configuration
      */
-    getTemplateDirName() {
+    getTemplateDirName(): string {
         return (this.platform_configuration.platform + '-' + this.platform_configuration.template + '-template').toLowerCase()
     }
 
@@ -37,7 +37,7 @@ export class Configuration {
      * @returns `string`: group name
      * @summary return group name (app_id without application name at the end)
      */
-    getGroupName() {
+    getGroupName(): string {
         return (this.app_id.split('.').slice(0, -1).join('.'))
     }
 
@@ -46,7 +46,7 @@ export class Configuration {
      * @returns `string`: display class instance values
      * @summary Returns class information
      */
-    toString() {
+    toString(): string {
         return 'Configuration ' + JSON.stringify(this, null, 4)
     }
 }

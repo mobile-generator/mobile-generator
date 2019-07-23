@@ -11,7 +11,7 @@ export class Loader {
      * @returns It return loader instance
      * @summary It create a loader and display it
      */
-    static startWithMessage(message: string) {
+    static startWithMessage(message: string): Loader {
         const loader = new this(message)
         loader.start()
 
@@ -44,7 +44,7 @@ export class Loader {
      * start
      * @summary It starts loader
      */
-    start() {
+    start(): void {
         this.interval = setInterval(() => {
             this.ui.updateBottomBar(this.loader[this.index++ % this.loader.length] + this.message)
         }, 100)
@@ -55,7 +55,7 @@ export class Loader {
      * @param msg msg to display in-place of the loader
      * @summary It stops loader
      */
-    stop(msg: string) {
+    stop(msg: string): void {
         if (this.interval) {
             clearInterval(this.interval)
         }

@@ -35,7 +35,7 @@ export default class Interactive extends Command {
   // Create new require configuration with default values
   require_configuration = new RequireConfiguration()
 
-  async run() {
+  async run(): Promise<void> {
     // Check requirements
     await this.require_configuration.checkRequirements()
     // Check if it's all good
@@ -44,7 +44,7 @@ export default class Interactive extends Command {
       await this.interactiveRun()
     }
   }
-  async interactiveRun() {
+  async interactiveRun(): Promise<void> {
     // Retrieve common config to all platform
     await commonConfigForm(this.configuration, this.require_configuration.isFlutterAvailable).then(async () =>
 

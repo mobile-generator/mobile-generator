@@ -24,7 +24,7 @@ export const ANDROID_FLAGS = {
  * @param configuration user configuration
  * @summary It will set specific configuration for Android using flags values
  */
-export function androidConfigFromFlags(flags: any, configuration: Configuration) {
+export function androidConfigFromFlags(flags: any, configuration: Configuration): void {
     configuration.platform_configuration.platform = PlatformType.Android
     configuration.platform_configuration.sdk_min_version = flags.sdk_min_version
     configuration.platform_configuration.sdk_target_version = flags.sdk_target_version
@@ -38,7 +38,7 @@ export function androidConfigFromFlags(flags: any, configuration: Configuration)
  * otherwise it will reject it with the error
  * @summary It will ask for Android specific configuration using InquirerJS
  */
-export async function androidConfigForm(configuration: Configuration) {
+export async function androidConfigForm(configuration: Configuration): Promise<boolean> {
     // Retrieve advised sdk version index from the SDK version list
     const advised_target_version_index = android_config
         .sdk_version

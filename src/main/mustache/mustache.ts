@@ -18,7 +18,7 @@ import { MustacheData } from './mustache-data'
  * @param config contains configuration which will replace values in the template file
  * @summary Fill in template file according to user configuration
  */
-export function mustacheFile(src: string, dest: string, config: MustacheData) {
+export function mustacheFile(src: string, dest: string, config: MustacheData): void {
     writeFileSync(dest, Mustache.render(readFileSync(src).toString(), config))
 }
 
@@ -29,49 +29,47 @@ export function mustacheFile(src: string, dest: string, config: MustacheData) {
  * @param config contains configuration which will replace values in the template file
  * @summary Fill in template directory according to user configuration
  */
-export function mustacheDirectory(src: string, dest: string, config: MustacheData) {
-    readdir(src, function (err, files) {
+export function mustacheDirectory(src: string, dest: string, config: MustacheData): void {
+    readdir(src, function (err, files): void {
         if (err) {
             // Error whilst parsing folder
             process.exit(1)
         }
 
         // Loop through all the directories / files inside the current directory
-        files.forEach(function (file) {
+        files.forEach(function (file): void {
             let srcPath = path.join(src, file)
             let destPath = path.join(dest, file)
 
             // This will retrieve the information about folder / file
-            stat(srcPath, function (error, stat) {
-                if (error) {
+            stat(srcPath, function (error, stat): void {
+                if (!error) {
                     // Error whilst retrieving information
-                    return 'Can not retrieve information'
-                }
 
-                if (stat.isFile()) {
-                    // We check if the file is blacklisted (see `checkFileExtension` doc)
+                    if (stat.isFile()) {
+                        // NPM automatically renames .gitignore to .npmignore when pushing source files
+                        // To avoid any issue with the template we force the renaming
+                        if (srcPath.endsWith('.npmignore')) {
+                            srcPath.replace('.npmignore', '.gitignore')
+                        }
 
-                    // NPM automatically renames .gitignore to .npmignore when pushing source files
-                    // To avoid any issue with the template we force the renaming
-                    if (srcPath.endsWith('.npmignore')) {
-                        srcPath.replace('.npmignore', '.gitignore')
-                    }
+                        // We check if the file is blacklisted (see `checkFileExtension` doc)
+                        if (checkFileExtension(srcPath)) {
+                            // Render filename
+                            let renderedDest = Mustache.render(destPath, config)
+                            // Render file contents
+                            mustacheFile(srcPath, renderedDest, config)
+                        }
 
-                    if (checkFileExtension(srcPath)) {
-                        // Render filename
+                    } else if (stat.isDirectory()) {
+                        // Render directory name
                         let renderedDest = Mustache.render(destPath, config)
-                        // Render file contents
-                        mustacheFile(srcPath, renderedDest, config)
+                        ensureDirSync(renderedDest)
+                        // Check if we need to create package name's folder tree
+                        renderedDest = buildAppIdTreeIfNecessary(renderedDest, config.app_id)
+                        // Render directory contents
+                        mustacheDirectory(srcPath, renderedDest, config)
                     }
-
-                } else if (stat.isDirectory()) {
-                    // Render directory name
-                    let renderedDest = Mustache.render(destPath, config)
-                    ensureDirSync(renderedDest)
-                    // Check if we need to create package name's folder tree
-                    renderedDest = buildAppIdTreeIfNecessary(renderedDest, config.app_id)
-                    // Render directory contents
-                    mustacheDirectory(srcPath, renderedDest, config)
                 }
             })
         })
@@ -86,7 +84,7 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
  * This function will check if the file is in the blacklist
  * and avoid error with Mustache parser.
  */
-function checkFileExtension(file: string) {
+function checkFileExtension(file: string): boolean {
     let extension = path.extname(file).split('.', 2)[1]
     // Black list
     const BLACKLIST_EXTENSION = ['png', 'jpg', 'jpeg']
@@ -102,7 +100,7 @@ function checkFileExtension(file: string) {
  * @param package_name package name
  * @summary This function will create folder tree according to package name
  */
-function buildAppIdTreeIfNecessary(directory: string, package_name: string) {
+function buildAppIdTreeIfNecessary(directory: string, package_name: string): string {
     /* Package name's folder tree are under :
      * `.../src/androidTest/java/`
      * `.../src/main/java/`
@@ -122,8 +120,8 @@ function buildAppIdTreeIfNecessary(directory: string, package_name: string) {
  * @param config contains the configuration entered by the user
  * @summary This will create the project according to the user setting.
  */
-export async function renderProject(config: Configuration) {
-    return new Promise<boolean>(async function (resolve, reject) {
+export async function renderProject(config: Configuration): Promise<boolean> {
+    return new Promise<boolean>(async function (resolve, reject): Promise<void> {
         // Create temporary directory in /tmp with unique name
         createTempDir(config).then(async path => {
             const tempPath = path + '/' + cleanString(config.platform_configuration.platform)

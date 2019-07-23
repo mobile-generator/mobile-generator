@@ -7,7 +7,7 @@ import * as stripAnsi from 'strip-ansi'
  * @summary Return true if the object is empty or full of undefined values.
  * Otherwise it returns false
  */
-export function isEmpty(obj: any) {
+export function isEmpty(obj: any): boolean {
     for (const val of Object.values(obj)) {
       if (val) {
         return false
@@ -21,7 +21,7 @@ export function isEmpty(obj: any) {
  * @param str folder name
  * @summary Create folder safe name
  */
-export function cleanString(str: string) {
+export function cleanString(str: string): string {
     return sanitize(str.toLowerCase())
 }
 
@@ -32,7 +32,7 @@ export function cleanString(str: string) {
  * Reformat application name string to be compliant with Android Developers rule
  * Source: https://developer.android.com/studio/build/application-id
  */
-export function stringToPackageNameFormat(str: string) {
+export function stringToPackageNameFormat(str: string): string {
     return cleanString(str).replace(/[-_?!]/g, '_')
 }
 
@@ -43,7 +43,7 @@ export function stringToPackageNameFormat(str: string) {
  * wether or not the name is a valid package name
  * @summary This will validate package name
  */
-export function validatePackageName(str: string) {
+export function validatePackageName(str: string): string | boolean {
     // Remove trailing colors
     str = stripAnsi.default(str)
 

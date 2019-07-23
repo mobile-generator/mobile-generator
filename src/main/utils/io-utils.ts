@@ -15,7 +15,7 @@ import { cleanString } from './string-utils'
  *  If directory exist but is empty, it will return false
  * @summary It will check wether or not the directory exist
  */
-export async function checkDirectory(configuration: Configuration) {
+export async function checkDirectory(configuration: Configuration): Promise<boolean> {
     const dirPath = path.join(process.cwd() + '/' + cleanString(configuration.app_name) + '/' + cleanString(configuration.platform_configuration.platform))
     // Create directory if it doesn't exist
     ensureDirSync(dirPath)
@@ -31,7 +31,7 @@ export async function checkDirectory(configuration: Configuration) {
  * @param configuration user configuration
  * @summary Remove all contents of the destination directory
  */
-export function cleanDestDir(configuration: Configuration) {
+export function cleanDestDir(configuration: Configuration): void {
     // Retrieve destination directory path
     const dir = path.join(process.cwd() + '/' + configuration.app_name + '/' + cleanString(configuration.platform_configuration.platform))
     // Retrieve destination directory content
@@ -52,8 +52,8 @@ export function cleanDestDir(configuration: Configuration) {
  * otherwise it will reject the promise with the error inside
  * Create temporary directory inside /tmp with an unique name
  */
-export function createTempDir(configuration: Configuration) {
-    return new Promise<string>(function (resolve, reject) {
+export function createTempDir(configuration: Configuration): Promise<string> {
+    return new Promise<string>(function (resolve, reject): void {
         // Create temporary unique directory with application name as prefix
         mkdtemp('/tmp/' + configuration.app_name, (err, path) => {
             if (err) {
@@ -82,8 +82,8 @@ export function createTempDir(configuration: Configuration) {
  * Move temporary directory to destination directory
  * then it removes temporary directory
  */
-export function moveTempDirToDest(configuration: Configuration, tempDir: string) {
-    return new Promise<boolean>(function (resolve, reject) {
+export function moveTempDirToDest(configuration: Configuration, tempDir: string): Promise<boolean> {
+    return new Promise<boolean>(function (resolve, reject): void {
         copy(tempDir, process.cwd() + '/' + configuration.app_name).then(
             () => {
                 remove(tempDir).then(

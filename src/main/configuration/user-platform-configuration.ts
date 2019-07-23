@@ -32,7 +32,7 @@ export class UserPlatformConfiguration implements IUserPlatformConfiguration {
      * @param platform chosen platform
      * @summary Load configuration with default value for given platform
      */
-    static fromPlatformType(platform: PlatformType) {
+    static fromPlatformType(platform: PlatformType): UserPlatformConfiguration {
         switch (platform) {
             case PlatformType.Android:
                 return this.fromJSON(ANDROID_CONF)
@@ -48,7 +48,7 @@ export class UserPlatformConfiguration implements IUserPlatformConfiguration {
      * @param config JSON configuration
      * @summary Parse JSON and return configuration
      */
-    static fromJSON(config: JSONConstantPlatformConfiguration) {
+    static fromJSON(config: JSONConstantPlatformConfiguration): UserPlatformConfiguration {
         return new this(
             (PlatformType as any)[config.platform],
             (TemplateType as any)[config.template[0]],

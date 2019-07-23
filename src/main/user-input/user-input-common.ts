@@ -24,7 +24,7 @@ export const COMMON_FLAGS = {
  * @summary It will check args values and return true if they are valid
  * Otherwise it will return false
  */
-export function commonCheckFlags(args: any) {
+export function commonCheckFlags(args: any): boolean {
     return stripAnsi.default(args.app_name) !== '' && validatePackageName(args.app_id) === true
 }
 
@@ -35,7 +35,7 @@ export function commonCheckFlags(args: any) {
  * @param configuration user configuration
  * @summary It will set specific configuration for Android using flags values
  */
-export function commonConfigFromArgsFlags(args: any, flags: any, configuration: Configuration) {
+export function commonConfigFromArgsFlags(args: any, flags: any, configuration: Configuration): void {
     configuration.app_id = args.app_id + '.' + stringToPackageNameFormat(args.app_name)
     configuration.app_name = args.app_name
     configuration.internet_permission = flags.internet_permission
@@ -48,7 +48,7 @@ export function commonConfigFromArgsFlags(args: any, flags: any, configuration: 
  * otherwise it will reject it with the error
  * @summary It will ask for iOS specific configuration using InquirerJS
  */
-export async function commonConfigForm(configuration: Configuration, isFlutterAvailable: boolean) {
+export async function commonConfigForm(configuration: Configuration, isFlutterAvailable: boolean): Promise<boolean> {
     // Prompt for platform target
 
     // Retrieve available platform
@@ -79,17 +79,17 @@ export async function commonConfigForm(configuration: Configuration, isFlutterAv
             type: 'input',
             name: 'value',
             message: "What's your app name",
-            validate(name) {
+            validate(name): boolean {
                 name = stripAnsi.default(name)
                 return name !== ''
             },
-            default() {
+            default(): string {
                 return chalkPipe('orange')('my-app')
             },
-            transformer(str) {
+            transformer(str): string {
                 return chalkPipe('orange')(str)
             },
-            filter(str) {
+            filter(str): string {
                 return stripAnsi.default(str)
             }
         },
@@ -105,7 +105,7 @@ export async function commonConfigForm(configuration: Configuration, isFlutterAv
             name: 'app_id',
             message: getQuestionGroupNameOrAppId(configuration),
             validate: validatePackageName,
-            transformer(input) {
+            transformer(input): string {
                 if (input !== '') {
                     let tmp = input.split('.')
                     if (tmp.length < 3) {
@@ -116,10 +116,10 @@ export async function commonConfigForm(configuration: Configuration, isFlutterAv
                 }
                 return ''
             },
-            default() {
+            default(): string {
                 return `${chalkPipe('yellow')('com.mycompany')}.${chalkPipe('orange')(stringToPackageNameFormat(configuration.app_name))}`
             },
-            filter(str) {
+            filter(str): string {
                 str = stripAnsi.default(str)
 
                 if (!str.endsWith(stringToPackageNameFormat(configuration.app_name))) {
@@ -152,7 +152,7 @@ export async function commonConfigForm(configuration: Configuration, isFlutterAv
  * otherwise it will reject it with the error
  * @summary It will ask if user wants to overwrite destination directory using InquirerJS
  */
-export async function overwriteDestDirForm(configuration: Configuration) {
+export async function overwriteDestDirForm(configuration: Configuration): Promise<boolean> {
     // Prompt for overwrite
     let overwrite: any = await inquirer.prompt([
         {
@@ -173,7 +173,7 @@ export async function overwriteDestDirForm(configuration: Configuration) {
  * @returns Platform's corresponding question
  * @summary This will return corresponding question for `app_id` configuration property
  */
-function getQuestionGroupNameOrAppId(configuration: Configuration) {
+function getQuestionGroupNameOrAppId(configuration: Configuration): string {
     switch (configuration.platform_configuration.platform) {
         case(PlatformType.Android): return 'What is your group name'
         case(PlatformType.Flutter): return 'What\'s your group name/app id'

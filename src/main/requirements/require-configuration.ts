@@ -18,7 +18,7 @@ export class RequireConfiguration {
      * checkRequirements
      * @summary set all requirements state
      */
-    async checkRequirements() {
+    async checkRequirements(): Promise<boolean> {
         if (!await flutterIsInstalled()) {
             console.log(chalkPipe('red.bold')('Mobile Generator didn\'t found flutter executable. Perhaps it isn\'t in your PATH?'))
             console.log(chalkPipe('red.bold')('Otherwise, follow the installation guide at ') + chalkPipe('green')('https://flutter.dev/docs/get-started/install'))
@@ -30,11 +30,11 @@ export class RequireConfiguration {
     }
 
     /**
-     * checkRequirements
+     * isAllGood
      * @returns Wether or not all blocking requirements are in their ‘non-blocking’ state
      * @summary set all requirements state
      */
-    isAllGood() {
+    isAllGood(): boolean {
         return true
     }
 

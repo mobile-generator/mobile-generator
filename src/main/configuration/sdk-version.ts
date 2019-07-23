@@ -17,7 +17,7 @@ export class SdkVersion implements ISdkVersion {
      * @param version: string
      * @summary Create SdkVersion instance from string
      */
-    static fromString(version: string) {
+    static fromString(version: string): SdkVersion {
         let [version_major, version_minor] = version.split('.', 2).map(str => parseInt(str, 10))
         return new this(version_major, version_minor)
     }
@@ -38,7 +38,7 @@ export class SdkVersion implements ISdkVersion {
      * value < 0 if current is older
      * @summary Compare two sdk version.
      */
-    compare(other_sdk: SdkVersion) {
+    compare(other_sdk: SdkVersion): number {
         if (this.version_major !== other_sdk.version_major) {
             return this.version_major - other_sdk.version_major
         } else if (this.version_minor !== other_sdk.version_minor) {
@@ -52,7 +52,7 @@ export class SdkVersion implements ISdkVersion {
      * @returns class info
      * @summary Returns class information
      */
-    toString() {
+    toString(): string {
         if (this.version_minor === 0) {
             return `${this.version_major}`
         }

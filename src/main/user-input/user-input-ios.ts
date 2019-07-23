@@ -23,7 +23,7 @@ export const IOS_FLAGS = {
  * @param configuration user configuration
  * @summary It will set specific configuration for iOS using flags values
  */
-export function iosConfigFromFlags(flags: any, configuration: Configuration) {
+export function iosConfigFromFlags(flags: any, configuration: Configuration): void {
     configuration.platform_configuration.platform = PlatformType.Android
     configuration.platform_configuration.sdk_min_version = flags.sdk_min_version
     configuration.platform_configuration.template = flags.template
@@ -36,7 +36,7 @@ export function iosConfigFromFlags(flags: any, configuration: Configuration) {
  * otherwise it will reject it with the error
  * @summary It will ask for iOS specific configuration using InquirerJS
  */
-export async function iosConfigForm(configuration: Configuration) {
+export async function iosConfigForm(configuration: Configuration): Promise<boolean> {
     // Retrieve advised min sdk version index from the SDK version list
     const advised_min_version_index = ios_config
         .sdk_version

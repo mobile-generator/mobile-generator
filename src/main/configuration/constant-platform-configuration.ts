@@ -31,7 +31,7 @@ export class ConstantPlatformConfiguration implements IConstantPlatformConfigura
      * @param platform chosen platform
      * @summary Load configuration for given platform
      */
-    static fromPlatformType(platform: PlatformType) {
+    static fromPlatformType(platform: PlatformType): ConstantPlatformConfiguration {
         switch (platform) {
             case PlatformType.Android:
                 return this.fromJSON(ANDROID_CONF)
@@ -47,7 +47,7 @@ export class ConstantPlatformConfiguration implements IConstantPlatformConfigura
      * @param config JSON configuration
      * @summary Parse JSON and return configuration
      */
-    static fromJSON(config: JSONConstantPlatformConfiguration) {
+    static fromJSON(config: JSONConstantPlatformConfiguration): ConstantPlatformConfiguration {
         return new this(
             (PlatformType as any)[config.platform],
             config.sdk_version.map(str => SdkVersion.fromString(str)),

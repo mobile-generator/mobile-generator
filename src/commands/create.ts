@@ -47,7 +47,7 @@ export default class Create extends Command {
   // Create new require configuration with default values
   require_configuration = new RequireConfiguration()
 
-  async run() {
+  async run(): Promise<void> {
     const { args, flags } = this.parse(Create)
 
     // Check requirements
@@ -61,7 +61,7 @@ export default class Create extends Command {
     }
   }
 
-  async staticRun(args: any, flags: any) {
+  async staticRun(args: any, flags: any): Promise<void> {
     if (commonCheckFlags(args)) {
       commonConfigFromArgsFlags(args, flags, this.configuration)
       specificPlatformConfigFromFlags(args.platform, flags, this.configuration)

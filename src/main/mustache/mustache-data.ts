@@ -8,7 +8,7 @@ import { PlatformType } from '../configuration/enum'
  * that Mustache can use.
  */
 export class MustacheData {
-    static fromConfiguration(config: Configuration) {
+    static fromConfiguration(config: Configuration): MustacheData {
         const configuration = new this(
             config.app_name,
             config.app_id,

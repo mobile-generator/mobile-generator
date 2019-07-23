@@ -7,7 +7,7 @@ import { Configuration } from '../configuration/configuration'
  * @summary It will set specific configuration for Flutter using flags values
  */
 // tslint:disable-next-line: no-unused
-export function flutterConfigFromFlags(flags: any, configuration: Configuration) {
+export function flutterConfigFromFlags(flags: any, configuration: Configuration): void {
     // For now Flutter doesn't require any flags
 }
 
@@ -18,7 +18,7 @@ export function flutterConfigFromFlags(flags: any, configuration: Configuration)
  * otherwise it will reject it with the error
  * @summary It will ask for Flutter specific configuration using InquirerJS
  */
-export async function flutterConfigForm() {
+export async function flutterConfigForm(): Promise<boolean> {
     /**
      * For now there are no specific question regarding Flutter
      */
