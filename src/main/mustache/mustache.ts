@@ -26,6 +26,46 @@ export function mustacheFile(src: string, dest: string, config: MustacheData): v
 }
 
 /**
+ * renderFile
+ * @param src source directory
+ * @param dest output directory
+ * @param config contains configuration which will replace values in the template file
+ * @summary Rename file if necessary, mustache it if necessary
+ */
+function renderFile(src: string, dest: string, config: MustacheData): void {
+    // NPM automatically renames .gitignore to .npmignore when pushing source files
+    // To avoid any issue with the template we force the renaming
+    if (src.endsWith(NPM_IGNORE)) {
+        src.replace(NPM_IGNORE, GIT_IGNORE)
+    }
+
+    // We check if the file is blacklisted (see `checkFileExtension` doc)
+    if (checkFileExtension(src)) {
+        // Render filename
+        let renderedDest = Mustache.render(dest, config)
+        // Render file contents
+        mustacheFile(src, renderedDest, config)
+    }
+}
+
+/**
+ * renderFile
+ * @param src source directory
+ * @param dest output directory
+ * @param config contains configuration which will replace values in the template file
+ * @summary mustache directory name if necessary, and render its content
+ */
+function renderDirectory(src: string, dest: string, config: MustacheData): void {
+    // Render directory name
+    let renderedDest = Mustache.render(dest, config)
+    ensureDirSync(renderedDest)
+    // Check if we need to create package name's folder tree
+    renderedDest = buildAppIdTreeIfNecessary(renderedDest, config.app_id)
+    // Render directory contents
+    mustacheDirectory(src, renderedDest, config)
+}
+
+/**
  * mustacheDirectory
  * @param src source directory
  * @param dest output directory
@@ -41,39 +81,19 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
 
         // Loop through all the directories / files inside the current directory
         files.forEach(function (file): void {
-            let srcPath = path.join(src, file)
-            let destPath = path.join(dest, file)
+            const srcPath = path.join(src, file)
+            const destPath = path.join(dest, file)
 
             // This will retrieve the information about folder / file
             stat(srcPath, function (error, stat): void {
                 if (!error) {
-                    // Error whilst retrieving information
-
                     if (stat.isFile()) {
-                        // NPM automatically renames .gitignore to .npmignore when pushing source files
-                        // To avoid any issue with the template we force the renaming
-                        if (srcPath.endsWith(NPM_IGNORE)) {
-                            srcPath.replace(NPM_IGNORE, GIT_IGNORE)
-                        }
-
-                        // We check if the file is blacklisted (see `checkFileExtension` doc)
-                        if (checkFileExtension(srcPath)) {
-                            // Render filename
-                            let renderedDest = Mustache.render(destPath, config)
-                            // Render file contents
-                            mustacheFile(srcPath, renderedDest, config)
-                        }
-
+                        renderFile(srcPath, destPath, config)
                     } else if (stat.isDirectory()) {
-                        // Render directory name
-                        let renderedDest = Mustache.render(destPath, config)
-                        ensureDirSync(renderedDest)
-                        // Check if we need to create package name's folder tree
-                        renderedDest = buildAppIdTreeIfNecessary(renderedDest, config.app_id)
-                        // Render directory contents
-                        mustacheDirectory(srcPath, renderedDest, config)
+                        renderDirectory(srcPath, destPath, config)
                     }
                 } else {
+                    // Error whilst retrieving information
                     process.exit(ERROR_RETRIEVING_INFO)
                 }
             })
