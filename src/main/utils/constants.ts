@@ -29,10 +29,10 @@ const FLUTTER_CREATE_ERROR = 'Error when running following command: '
 const FLUTTER_CREATE_SUCCESS = chalkPipe('green.bold')('✓ Installation done!\n')
 const FLUTTER_ERROR = 'Current error: '
 const FLUTTER_INSTALL_ADVICE = 'Otherwise, follow the installation guide at '
-const FLUTTER_INSTAL_PAGE = 'https://flutter.dev/docs/get-started/install'
+const FLUTTER_INSTALL_PAGE = 'https://flutter.dev/docs/get-started/install'
 const FLUTTER_NOT_IN_PATH = 'Mobile Generator didn\'t found flutter executable. Perhaps it isn\'t in your PATH?'
 const WARNING_FLUTTER_NOT_IN_PATH_MSG_1 = chalkPipe('orange.bold')(FLUTTER_NOT_IN_PATH)
-const WARNING_FLUTTER_NOT_IN_PATH_MSG_2 = chalkPipe('orange.bold')(FLUTTER_INSTALL_ADVICE) + chalkPipe('green')(FLUTTER_INSTAL_PAGE)
+const WARNING_FLUTTER_NOT_IN_PATH_MSG_2 = chalkPipe('orange.bold')(FLUTTER_INSTALL_ADVICE) + chalkPipe('green')(FLUTTER_INSTALL_PAGE)
 export { FLUTTER_CREATE_ERROR, FLUTTER_CREATE_SUCCESS, FLUTTER_ERROR, WARNING_FLUTTER_NOT_IN_PATH_MSG_1, WARNING_FLUTTER_NOT_IN_PATH_MSG_2 }
 
 // INPUT VALUES //
