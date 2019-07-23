@@ -5,7 +5,7 @@ import * as path from 'path'
 
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
-import { BLACKLIST_EXTENSION, ERROR_PARSING_TEMPLATE, GIT_IGNORE, NPM_IGNORE } from '../utils/constants'
+import { BLACKLIST_EXTENSION, ERROR_PARSING_TEMPLATE, ERROR_RETRIEVING_INFO, GIT_IGNORE, NPM_IGNORE } from '../utils/constants'
 import { createFlutterProject } from '../utils/flutter-utils'
 import { createTempDir, moveTempDirToDest } from '../utils/io-utils'
 import { cleanString } from '../utils/string-utils'
@@ -73,6 +73,8 @@ export function mustacheDirectory(src: string, dest: string, config: MustacheDat
                         // Render directory contents
                         mustacheDirectory(srcPath, renderedDest, config)
                     }
+                } else {
+                    process.exit(ERROR_RETRIEVING_INFO)
                 }
             })
         })
