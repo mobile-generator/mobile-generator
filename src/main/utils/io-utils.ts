@@ -34,11 +34,9 @@ export async function checkDirectory(configuration: Configuration): Promise<bool
 export function cleanDestDir(configuration: Configuration): void {
     // Retrieve destination directory path
     const dir = path.join(process.cwd() + '/' + configuration.app_name + '/' + cleanString(configuration.platform_configuration.platform))
-    // Retrieve destination directory content
-    const contents = readdirSync(dir)
 
     // Loop through all files and directories and remove them
-    for (const item of contents) {
+    for (const item of readdirSync(dir)) {
         // Remove file
         removeSync(path.join(dir, item))
     }
