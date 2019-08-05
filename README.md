@@ -1,7 +1,7 @@
 # Mobile Generator
 
-![npm (scoped)](https://img.shields.io/npm/v/@mobile-generator/mobile-generator)
-![Travis (.org) branch](https://img.shields.io/travis/mobile-generator/mobile-generator/master)
+https://img.shields.io/npm/v/@mobile-generator/mobile-generator
+https://img.shields.io/travis/mobile-generator/mobile-generator
 
 ## Purpose
 
