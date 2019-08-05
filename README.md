@@ -1,5 +1,8 @@
 # Mobile Generator
 
+![npm (scoped)](https://img.shields.io/npm/v/@mobile-generator/mobile-generator)
+![Travis (.org) branch](https://img.shields.io/travis/mobile-generator/mobile-generator/master)
+
 ## Purpose
 
 This project aims to initialize mobile project by following guidelines provided by constructor and frameworks.
@@ -12,7 +15,7 @@ The best way to get started is to install our [npm package](https://www.npmjs.co
 
 ### :package: install it using NPM
 
-`$ npm i mobile-generator`
+`$ npm i @mobile-generator/mobile-generator`
 
 Read the [CLI usage](##Usage) to run CLI or start with [one of our example](https://github.com/mobile-generator/examples).
 
