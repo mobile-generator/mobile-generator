@@ -1,11 +1,19 @@
-language: node_js
-node_js:
-  - node
+matrix:
+  include:
+    - language: node_js
+      node_js:
+        - node
+      cache: npm
 
-cache: npm
+      script:
+        - ./bin/run create --help
+        - ./bin/run interactive --help
+        - npm run test
 
-script:
-  - .\bin\run --version
-  - .\bin\run --help
-  - npm run test
-
+    - language: swift
+      install:
+        - npm install
+      osx_image: xcode11
+      script:
+        - ./bin/run create ios my-app com.mycompany --ios_min_sdk=12.2 --ios_template=tabbar --internet_permission
+        - xcodebuild clean build test -project my-app/ios/my_app.xcodeproj -scheme my_app -sdk iphonesimulator -destination "platform=iOS Simulator,OS=12.2,name=iPhone 6"

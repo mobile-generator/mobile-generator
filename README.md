@@ -68,7 +68,7 @@ Android example:
 `$ mobile-generator create android my-app com.mycompany --android_min_sdk=21 --android_target_sdk=29 --android_template=drawer --internet_permission`
 
 iOS example:  
-`$ mobile-generator create ios my-app com.mycompany --ios_min_sdk=21 --ios_template=drawer --internet_permission`
+`$ mobile-generator create ios my-app com.mycompany --ios_min_sdk=12.2 --ios_template=tabbar --internet_permission`
 
 Flutter example:  
 `$ mobile-generator create flutter my-app com.mycompany`

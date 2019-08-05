@@ -4,13 +4,14 @@ import * as inquirer from 'inquirer'
 import { Configuration } from '../configuration/configuration'
 import { ConstantPlatformConfiguration } from '../configuration/constant-platform-configuration'
 import { PlatformType } from '../configuration/enum'
+import { SdkVersion } from '../configuration/sdk-version'
 
 // Retrieve iOS configuration
 const ios_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.iOS)
 
 /**
  * IOS_FLAGS
- * Flags for android configuration
+ * Flags for iOS configuration
  */
 export const IOS_FLAGS = {
     ios_min_sdk: flags.string({description: 'iOS Min SDK', options: ios_config.sdk_version.map(version => version.toString()) }),
@@ -24,9 +25,9 @@ export const IOS_FLAGS = {
  * @summary It will set specific configuration for iOS using flags values
  */
 export function iosConfigFromFlags(flags: any, configuration: Configuration): void {
-    configuration.platform_configuration.platform = PlatformType.Android
-    configuration.platform_configuration.sdk_min_version = flags.sdk_min_version
-    configuration.platform_configuration.template = flags.template
+    configuration.platform_configuration.platform = PlatformType.iOS
+    configuration.platform_configuration.sdk_min_version = SdkVersion.fromString(flags.ios_min_sdk)
+    configuration.platform_configuration.template = flags.ios_template
 }
 
 /**

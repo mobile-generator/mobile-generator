@@ -33,7 +33,7 @@ describe('MustacheData', function (): void {
 
     describe('fromConfiguration ios', function (): void {
         it('instance with default value', function (): void {
-            expect(mustacheData.app_name).to.be.string('test-App')
+            expect(mustacheData.app_name).to.be.string('test_app')
             expect(mustacheData.app_id).to.be.string('com.testcompany.test_app')
             expect(mustacheData.internet_permission).to.be.string('false')
             expect(mustacheData.min_version).to.be.string(iosConf.sdk_min_version.toString())

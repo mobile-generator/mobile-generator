@@ -2,6 +2,7 @@ import { readFileSync } from 'fs-extra'
 
 import { Configuration } from '../configuration/configuration'
 import { PlatformType } from '../configuration/enum'
+import { stringToPackageNameFormat } from '../utils/string-utils'
 
 const PATH_TO_ANDROID_STRING_CONTENTS = '/../../ressource/component/android-strings-content.txt'
 const PATH_TO_ANDROID_DEFAULT_COLORS = '/../../ressource/component/android-default-colors.txt'
@@ -27,6 +28,9 @@ export class MustacheData {
                 configuration.android_strings_content = readFileSync(__dirname + PATH_TO_ANDROID_STRING_CONTENTS).toString()
                 configuration.android_default_imports = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_IMPORTS).toString()
                 configuration.android_default_colors = readFileSync(__dirname + PATH_TO_ANDROID_DEFAULT_COLORS).toString()
+                break
+            case PlatformType.iOS:
+                configuration.app_name = stringToPackageNameFormat(configuration.app_name)
         }
 
         return configuration

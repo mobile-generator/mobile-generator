@@ -4,6 +4,7 @@ import * as inquirer from 'inquirer'
 import { Configuration } from '../configuration/configuration'
 import { ConstantPlatformConfiguration } from '../configuration/constant-platform-configuration'
 import { PlatformType } from '../configuration/enum'
+import { SdkVersion } from '../configuration/sdk-version'
 
 // Retrieve Android configuration
 const android_config = ConstantPlatformConfiguration.fromPlatformType(PlatformType.Android)
@@ -26,9 +27,9 @@ export const ANDROID_FLAGS = {
  */
 export function androidConfigFromFlags(flags: any, configuration: Configuration): void {
     configuration.platform_configuration.platform = PlatformType.Android
-    configuration.platform_configuration.sdk_min_version = flags.sdk_min_version
-    configuration.platform_configuration.sdk_target_version = flags.sdk_target_version
-    configuration.platform_configuration.template = flags.template
+    configuration.platform_configuration.sdk_min_version = SdkVersion.fromString(flags.android_min_sdk)
+    configuration.platform_configuration.sdk_target_version = SdkVersion.fromString(flags.android_target_sdk)
+    configuration.platform_configuration.template = flags.android_template
 }
 
 /**

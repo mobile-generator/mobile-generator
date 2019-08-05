@@ -29,8 +29,8 @@ export function specificPlatformConfigForm(config: Configuration): Promise<boole
  */
 export function specificPlatformConfigFromFlags(str: string, flags: any, configuration: Configuration): void {
     switch (str) {
-        case PlatformType.Android: return androidConfigFromFlags(flags, configuration)
-        case PlatformType.Flutter: return flutterConfigFromFlags(flags, configuration)
-        case PlatformType.iOS: return iosConfigFromFlags(flags, configuration)
+        case PlatformType.Android.toLowerCase(): return androidConfigFromFlags(flags, configuration)
+        case PlatformType.Flutter.toLowerCase(): return flutterConfigFromFlags(flags, configuration)
+        case PlatformType.iOS.toLowerCase(): return iosConfigFromFlags(flags, configuration)
     }
 }

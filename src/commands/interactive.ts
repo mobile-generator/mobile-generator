@@ -5,7 +5,7 @@ import { renderProject } from '../main/mustache/mustache'
 import { RequireConfiguration } from '../main/requirements/require-configuration'
 import { commonConfigForm, overwriteDestDirForm } from '../main/user-input/user-input-common'
 import { specificPlatformConfigForm } from '../main/user-input/user-input-specific'
-import { ERROR_ALREADY_EXIST, ERROR_COMMON_CONFIG, ERROR_SPECIFIC_CONFIG, NO_ERROR  } from '../main/utils/constants'
+import { ERROR_ALREADY_EXIST, ERROR_COMMON_CONFIG, ERROR_SPECIFIC_CONFIG, NO_ERROR } from '../main/utils/constants'
 import { checkDirectory, cleanDestDir } from '../main/utils/io-utils'
 
 /**
