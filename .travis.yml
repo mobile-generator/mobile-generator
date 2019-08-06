@@ -10,42 +10,18 @@ matrix:
         - ./bin/run interactive --help
         - npm run test
 
-    - language: swift
+    - language: objective-c
+      before_install:
+        - gem install xcov
+        - gem update fastlane
       install:
         - npm install
       # Xcode version check https://docs.travis-ci.com/user/reference/osx/#xcode-version
       osx_image: xcode11
       script:
         - ./bin/run create ios my-app com.mycompany --ios_min_sdk=12.2 --ios_template=tabbar --internet_permission
-        - xcodebuild clean build test -project my-app/ios/my_app.xcodeproj -scheme my_app -sdk iphonesimulator -destination "platform=iOS Simulator,OS=12.2,name=iPhone 6"
-
-    - language: android
-      dist: trusty
-      before_install:
-        - nvm install node
-      install:
-        - npm install
-      before_script:
-        - ./bin/run create android my-App com.mycompany --android_min_sdk=21 --android_target_sdk=29 --android_template=drawer --internet_permission
-        - cd my-app/android/
-        - gradle wrapper
-        - chmod +x gradlew
-      android:
-        components:
-          # Uncomment the lines below if you want to
-          # use the latest revision of Android SDK Tools
-          # - tools
-          # - platform-tools
-
-          # The BuildTools version used by your project
-          - build-tools-29.0.0
-
-          # The SDK version used to compile your project
-          - android-29
-
-          # Specify at least one system image,
-          # if you need to run emulator(s) during your tests
-          - sys-img-x86-android-29
-      script: 
-        - cd my-app/android/
-        - gradlew connectedAndroidTest
+        - chmod +x travis/script.sh
+        - travis/script.sh
+      after_success:
+        - chmod +x travis/after_success_script.sh
+        - travis/after_success_script.sh
