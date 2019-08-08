@@ -1,7 +1,7 @@
 {
-  "name": "mobile-generator",
+  "name": "@mobile-generator/mobile-generator",
   "description": "This generator aims to initialize iOS and Android native projects (hybrid mobile projects coming soon) through Command Line Interface.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "mobile-generator",
   "bin": {
     "mobile-generator": "./bin/run"
