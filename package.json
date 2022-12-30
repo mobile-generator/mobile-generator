@@ -22,7 +22,7 @@
     "lodash": "^4.17.15",
     "lodash.template": "^4.5.0",
     "lookpath": "^1.0.2",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "mustache": "^3.0.1",
     "sanitize-filename": "^1.6.1",
     "strip-ansi": "^5.2.0",
